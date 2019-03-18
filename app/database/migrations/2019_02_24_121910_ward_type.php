@@ -19,6 +19,7 @@ class WardType extends Migration {
 			$table->increments('id');
 			$table->string('name');
 			
+			
 		});
 	}
 

@@ -14,7 +14,7 @@ class AddUniqueKeyConstraintToPocTables extends Migration {
 	{
 		//sample_id
 		DB::update('alter table poc_tables modify sample_id VARCHAR(255) UNIQUE NOT NULL');
-
+  
 	}
 
 	/**
