@@ -997,7 +997,6 @@ class UnhlsTestController extends \BaseController {
 							->where('unhls_tests.specimen_id', '=', $specimenId)
 							->get(['test_types.name', 'unhls_patients.ulin', 'unhls_patients.nin', 'specimens.time_collected' ]);
 		//Convert Array of objects to arrays
-							
 		$testdetails = json_decode(json_encode ($testdetails), true);					
 		
 		$facilities = UNHLSFacility::all();
@@ -1064,14 +1063,14 @@ class UnhlsTestController extends \BaseController {
 		});
 
 		//Start test
-		Input::merge(array('id' => $specimen->test->id)); //Add the testID to the Input
+		Input::merge(array('id' => $specimen->tests->first()->id)); //Add the testID to the Input
 		$this->start();
 
 		//Return view
 		$url = Session::get('SOURCE_URL');
 		
 		return Redirect::to($url)->with('message', trans('messages.specimen-successful-refer'))
-					->with('activeTest', array($specimen->test->id));
+					->with('activeTest', array($specimen->tests->first()->id));
 	}
 
 	/**
