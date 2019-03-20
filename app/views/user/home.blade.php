@@ -5,7 +5,6 @@
 
 <div class="panel-body row">
 	<div class="btn-group container col-md-3">
-
 		<a class="link-tip" href="{{ URL::route('dashboard.index')}}" data-toggle="tooltip" data-placement="bottom" title="Click to view key performance indicators for laboratory performance"> 
 			<div class="panel panel-default">
 			<span class="ion-speedometer" style="font-size:80px"></span> <br><span class="nav_title">DASHBOARD</span>
@@ -27,12 +26,12 @@
 		</a>
 	</div>
 	<div class="btn-group container col-xs-3">
-		<a class="link-tip" href="#" data-toggle="tooltip" data-placement="bottom" title="Click to access other resources e.g links to Viral load and EID Dashboard, CPHL websites">
+		<a class="link-tip" href="{{URL::route('poc.index')}}" data-toggle="tooltip" data-placement="bottom" title="Click to access other resources e.g links to Viral load and EID Dashboard, CPHL websites">
 			<div class="panel panel-default">
-			<span class="ion-icon ion-ios-folder"></span> <br><span class="nav_title">OTHER RESOURCES</span>
+			<span class="ion-icon ion-ios-folder"></span> <br><span class="nav_title">POC / EID</span>
 			</div>
 		</a>
-	</div>	
+	</div>
 </div>
 
 
@@ -43,8 +42,8 @@
 			<span class="ion-icon ion-stats-bars"></span> <br><span class="nav_title">REPORTS</span>
 			</div>
 		</a>
-	</div> 
-	
+	</div>
+
 		<div class="btn-group container col-xs-3">
 		<a href="{{ URL::route('unhls_test.index')}}" data-toggle="tooltip" data-placement="bottom" title="Click to request for a lab test or to view the list and status of test requests">
 			<div class=" panel panel-default">
@@ -52,7 +51,7 @@
 			</div>
 		</a>
 	</div>
-	
+
 	<div class="btn-group container col-xs-3">
 		<a href="{{ URL::route('bbincidence.index')}}" data-toggle="tooltip" data-placement="bottom" title="Click to view and record biosafety and biosecurity incidents">
 			<div class="panel panel-default">

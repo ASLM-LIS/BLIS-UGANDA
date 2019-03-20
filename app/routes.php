@@ -69,6 +69,8 @@ Route::group(array("before" => "auth"), function()
 
     //Unhls patient routes start here
     Route::resource('unhls_patient', 'UnhlsPatientController');
+   
+
     Route::get("/unhls_patient/{id}/delete", array(
         "as"   => "unhls_patient.delete",
         "uses" => "UnhlsPatientController@delete"
@@ -77,11 +79,70 @@ Route::group(array("before" => "auth"), function()
         "as"   => "unhls_patient.search",
         "uses" => "UnhlsPatientController@search"
     ));
+
+
+    //POC routes start here
+    Route::resource('poc', 'PocController');
+    Route::get("/poc/{id}/delete", array(
+        "as"   => "poc.delete",
+        "uses" => "PocController@delete"
+    ));
+    Route::post("/poc/search", array(
+        "as"   => "poc.search",
+        "uses" => "PocController@search"
+    ));
+
+    Route::get("/poc/{id}/edit", array(
+        "as"   => "poc.edit",
+        "uses" => "PocController@edit"
+    ));
+
+    Route::put("/poc/{id}/update", array(
+        "as"   => "poc.update",
+        "uses" => "PocController@update"
+    ));
+
+    Route::get("/poc/enter_results/{patient_id}/", array(
+        "as"   => "poc.enter_results",
+        "uses" => "PocController@enter_results"
+    ));
+
+    Route::post("/poc/save_results/{patient_id}/", array(
+        "as"   => "poc.save_results",
+        "uses" => "PocController@save_results"
+    ));
+
+     Route::get("/poc/edit_results/{patient_id}/", array(
+        "as"   => "poc.edit_results",
+        "uses" => "PocController@edit_results"
+    ));
+
+    Route::post("/poc/update_results/{patient_id}/", array(
+        "as"   => "poc.update_results",
+        "uses" => "PocController@update_results"
+    ));
+
+    Route::get("/poc_download/", array(
+        "as"   => "poc.download",
+        "uses" => "PocController@download"
+    ));
+
+    Route::get("unhls_test/importPoc", array(
+        "as" => "unhls_test.importPoc",
+        "uses" => "UnhlsTestController@importPoc"));
+
+    Route::post("unhls_test/uploadPoCResults", array(
+        "as" => "unhls_test.uploadPoCResults",
+        "uses" => "UnhlsTestController@uploadPoCResults"));
+
+    //Unhls patiend routes end
+
     Route::get("/eid_patient", array(
         "as" => "eid_patient.create",
         "uses" => "UnhlsPatientController@createEid"));
 
     //Unhls patient routes end
+
     Route::any("/instrument/getresult", array(
         "as"   => "instrument.getResult",
         "uses" => "InstrumentController@getTestResult"
@@ -132,6 +193,7 @@ Route::group(array("before" => "auth"), function()
     {
         Route::resource('instrument', 'InstrumentController');
         Route::resource('ward', 'WardController');
+        Route::resource('clinicians', 'CliniciansController');
         Route::resource('testnamemapping', 'TestNameMappingController');
 
         Route::get("/measurenamemapping/create/{test_type_id}", array(
@@ -182,6 +244,19 @@ Route::group(array("before" => "auth"), function()
         "as"   => "test.receive",
         "uses" => "UnhlsTestController@receive"
     ));
+
+    Route::any("/unhls_test/wards/{ward_type_id?}", array(
+        "before" => "checkPerms:request_test",
+        "as"   => "unhls_test.wards",
+        "uses" => "UnhlsTestController@getWards"
+    ));
+
+    Route::any("/unhls_test/clinician/{id?}", array(
+        "before" => "checkPerms:request_test",
+        "as"   => "unhls_test.clinician",
+        "uses" => "UnhlsTestController@getClinician"
+    ));
+
     Route::any("/unhls_test/create/{patient?}", array(
         "before" => "checkPerms:request_test",
         "as"   => "unhls_test.create",
@@ -242,7 +317,7 @@ Route::group(array("before" => "auth"), function()
         "before" => "checkPerms:edit_test_results",
         "as"   => "unhls_test.edit",
         "uses" => "UnhlsTestController@edit"
-    ));
+    )); 
     Route::post("/unhls_test/{test}/saveresults", array(
         "before" => "checkPerms:edit_test_results",
         "as"   => "unhls_test.saveResults",
@@ -275,9 +350,6 @@ Route::group(array("before" => "auth"), function()
     Route::get("unhls_test/verified", array(
         "as" => "unhls_test.verified",
         "uses" => "UnhlsTestController@verified"));
-    Route::get("unhls_test/importPoc", array(
-        "as" => "unhls_test.importPoc",
-        "uses" => "UnhlsTestController@importPoc"));
     //Test viewDetails start
     Route::get("/unhls_test/{test}/viewdetails", array(
         "as"   => "unhls_test.viewDetails",
@@ -288,6 +360,11 @@ Route::group(array("before" => "auth"), function()
         "before" => "checkPerms:verify_test_results",
         "as"   => "test.verify",
         "uses" => "UnhlsTestController@verify"
+    ));
+    Route::any("/test/{test}/approve", array(
+        "before" => "checkPerms:approve_test_results",
+        "as"   => "test.approve",
+        "uses" => "UnhlsTestController@approve"
     ));
     Route::resource('culture', 'CultureController');
     Route::resource('cultureobservation', 'CultureObservationController');
@@ -396,6 +473,22 @@ Route::group(array("before" => "auth"), function()
         Route::any("/patientreport/{id}", array(
             "as" => "reports.patient.report",
             "uses" => "ReportController@viewPatientReport"
+        ));
+        Route::any("/patientvisits/{id}", array(
+            "as" => "reports.patient.visits",
+            "uses" => "ReportController@viewPatientVisits"
+        ));
+         Route::any("/patientvisitreport/{id}", array(
+            "as" => "reports.patient.visit.report",
+            "uses" => "ReportController@viewPatientVisitReport"
+        ));
+        Route::any("/patient_final_report/{id}/{visit}", array(
+            "as" => "reports.patient.report",
+            "uses" => "ReportController@viewFinalPatientReport"
+        ));
+         Route::any("/patient_interim_report/{id}/{visit}", array(
+            "as" => "reports.patient.interim.report",
+            "uses" => "ReportController@viewInterimPatientReport"
         ));
         Route::any("/patientreport/{id}/{visit}/{testId?}", array(
             "as" => "reports.patient.report",

@@ -22,32 +22,48 @@
 									{{trans('messages.edit-test-results')}}
 								</a>
 							@endif
-							@if(Auth::user()->can('verify_test_results') && Auth::user()->id != $test->tested_by)
+							@if(Auth::user()->can('verify_test_results'))
 								@if(!$test->isVerified())
 								<a class="btn btn-sm btn-success" href="{{ URL::route('test.verify', array($test->id)) }}">
 									<span class="glyphicon glyphicon-thumbs-up"></span>
 									{{trans('messages.verify')}}
 								</a>
+								
+								@endif
+							@endif
+
+
+							@if(Auth::user()->can('approve_test_results') )
+								@if($test->isVerified())
+								
+								<a class="btn btn-sm btn-success" href="{{ URL::route('test.approve', array($test->id)) }}">
+									<span class="glyphicon glyphicon-thumbs-up"></span>
+									{{trans('messages.approve')}}
+								</a>
 								@endif
 							@endif
 						</div>
 						@endif
-						@if($test->isCompleted() || $test->isVerified())
+						
 						<div class="panel-btn">
 							@if(Auth::user()->can('view_reports'))
+							    @if($test->isApproved())
 								<a class="btn btn-sm btn-default"
-								href="{{ URL::to('patientreport/'.$test->visit->patient->id.'/'.$test->visit->id ) }}"
+								href="{{ URL::to('patient_final_report/'.$test->visit->patient->id.'/'.$test->visit->id ) }}"
 								>
 									<span class="glyphicon glyphicon-eye-open"></span>
-									{{trans('messages.view-visit-report')}}
+									{{trans('messages.view-final-report')}}
 								</a>
-								<a class="btn btn-sm btn-default" href="{{ URL::to('patientreport/'.$test->visit->patient->id.'/'.$test->visit->id.'/'.$test->id ) }}">
+								
+								@elseif( $test->isVerified())
+								<a class="btn btn-sm btn-default" href="{{ URL::to('patient_interim_report/'.$test->visit->patient->id.'/'.$test->visit->id ) }}">
 									<span class="glyphicon glyphicon-eye-open"></span>
-									{{trans('messages.view-test-report')}}
+									{{trans('messages.view-interim-report')}}
 								</a>
+								@endif
 							@endif
 						</div>
-						@endif
+						
                     </div>
                     <div class="col-md-1">
                         <a class="btn btn-sm btn-primary pull-right" href="#" onclick="window.history.back();return false;"
@@ -66,6 +82,8 @@
 								{{ $test->testType->name }}</h3>
 							<p class="view"><strong>{{trans('messages.visit-number')}}</strong>
 								{{$test->visit->id }}</p>
+							<p class="view"><strong>{{trans('messages.visit-lab-number')}}</strong>
+								{{$test->visit->visit_lab_number }}</p>
 							<p class="view"><strong>{{trans('messages.date-ordered')}}</strong>
 								{{ $test->isExternal()?$test->external()->request_date:$test->time_created }}</p>
 							<p class="view"><strong>{{trans('messages.lab-receipt-date')}}</strong>
@@ -99,6 +117,49 @@
 							<p class="view-striped"><strong>{{trans('messages.turnaround-time')}}</strong>
 								{{$test->getFormattedTurnaroundTime()}}</p>
 							@endif
+							<!-- Previous therapy-->
+							<p class="view-striped"><strong>Previous Therapy</strong>
+								@if(!empty($test->therapy->previous_therapy))
+									{{$test->therapy->previous_therapy}}
+								@else
+								@endif
+							</p>
+							<!-- Current therapy-->
+							<p class="view-striped"><strong>Current Therapy</strong>
+								
+								@if(!empty($test->therapy->current_therapy))
+									{{$test->therapy->current_therapy}}
+								@else
+									
+								@endif
+							</p>
+
+							<!-- Clinical notes-->
+							<p class="view-striped"><strong>Clinical notes</strong>
+								
+								@if(!empty($test->therapy->clinical_notes))
+									{{$test->therapy->clinical_notes}}
+								@endif
+
+							</p>
+							<!-- Test Requested by -->
+							<p class="view-striped"><strong>Test requested by</strong>
+								@if(!empty($test->therapy->clinician))
+									{{$test->therapy->clinician}}
+								@elseif(!empty($test->clinician->name ))
+		                            {{$test->clinician->name }}
+		                        
+								@endif
+							</p>
+							<!-- Requested by -->
+							<p class="view-striped"><strong>Phone contact of clinician</strong>
+								
+								@if(!empty($test->therapy->clinician))
+									{{$test->therapy->contact}}
+								@elseif(!empty($test->clinician->phone))
+		                           {{$test->clinician->phone }}
+								@endif
+
 						</div>
 					</div>
 					<div class="col-md-6">

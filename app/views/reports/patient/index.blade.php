@@ -13,7 +13,7 @@
             {{ Form::text('search', Input::get('search'), array('class' => 'form-control test-search')) }}
 		</div>
 		<div class="form-group">
-			{{ Form::button("<span class='glyphicon glyphicon-search'></span> ".trans('messages.search'), 
+			{{ Form::button("<span class='glyphicon glyphicon-search'></span> ".trans('messages.search'),
 		        array('class' => 'btn btn-primary', 'id' => 'filter', 'type' => 'submit')) }}
 		</div>
 	{{ Form::close() }}
@@ -53,9 +53,9 @@
 					<td>{{ $patient->getAge() }}</td>
 					<td>
 					<!-- show the patient report(uses the show method found at GET /patient/{id} -->
-						<a class="btn btn-sm btn-info" href="{{ URL::to('patientreport/' . $patient->id) }}" >
+						<a class="btn btn-sm btn-info" href="{{ URL::to('patientvisits/' . $patient->id) }}" >
 							<span class="glyphicon glyphicon-eye-open"></span>
-							{{trans('messages.view-report')}}
+							{{trans('messages.view-visits')}}
 						</a>
 					</td>
 				</tr>

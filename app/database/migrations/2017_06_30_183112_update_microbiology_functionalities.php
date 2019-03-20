@@ -408,7 +408,9 @@ class UpdateMicrobiologyFunctionalities extends Migration {
           array("id" => "3","name" => "started","test_phase_id" => "2"),//Analytical
           array("id" => "4","name" => "completed","test_phase_id" => "3"),//Post-Analytical
           array("id" => "5","name" => "verified","test_phase_id" => "3"),//Post-Analytical
-          array("id" => "6","name" => "specimen-rejected-at-analysis","test_phase_id" => "3")//Analytical
+          array("id" => "6","name" => "specimen-rejected-at-analysis","test_phase_id" => "3"),//Analytical
+          array("id" =>"7", "name" => "approved", "test_phase_id" => "3")
+
         );
         foreach ($test_statuses as $test_status)
         {
@@ -483,7 +485,9 @@ class UpdateMicrobiologyFunctionalities extends Migration {
             array("name" => "view_reports", "display_name" => "Can view reports"),
             array("name" => "manage_inventory", "display_name" => "Can manage inventory"),
             array("name" => "request_topup", "display_name" => "Can request top-up"),
-            array("name" => "manage_qc", "display_name" => "Can manage Quality Control")
+            array("name" => "manage_qc", "display_name" => "Can manage Quality Control"),
+
+            array("name" => "approve_test_results", "display_name" => "Can approve test results as the last phase")            
         );
 
         foreach ($permissions as $permission) {

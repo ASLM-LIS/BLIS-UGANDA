@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\QueryException;
+use Illuminate\Filesystem\Filesystem;
 
 /**
  * Contains test resources  
@@ -467,6 +468,7 @@ class UnhlsTestController extends \BaseController {
 		//Create a Lab categories Array
 		$categories = ['Select Lab Section']+TestCategory::lists('name', 'id');
 		$wards = ['Select Sample Origin']+Ward::lists('name', 'id');
+		$clinicians = ['Select clinician']+Clinician::lists('name', 'id');
 
 		// sample collection default details
 		$now = new DateTime();
@@ -492,9 +494,31 @@ class UnhlsTestController extends \BaseController {
 					->with('specimenType', $specimenTypes)
 					->with('patient', $patient)
 					->with('testCategory', $categories)
-					->with('ward', $wards);
+					->with('ward', $wards)
+					->with('clinicians',$clinicians);
 	}
 
+	public function getWards($ward_type_id = 0){
+
+		if($ward_type_id == 0){
+			$ward_type_id = Input::get('ward_type_id');
+			
+		}else{
+			$wards = Ward::where('ward_type_id','=',$ward_type_id)->get();
+		    
+		   
+       
+		}
+		
+
+		return $wards;
+		
+	}
+
+	public function getClinician($id){
+		$clinician = Clinician::find($id);
+		return $clinician;
+	}
 	/**
 	 * Save a new Test.
 	 *
@@ -502,10 +526,17 @@ class UnhlsTestController extends \BaseController {
 	 */
 	public function saveNewTest()
 	{
+		
 		//Create New Test
 		$rules = array(
 			'visit_type' => 'required',
 			'testtypes' => 'required',
+			//'phone_contact'=>'required',
+			'clinician'=>'required',
+			//'current_therapy'=>'required',
+			//'previous_therapy'=>'required',
+			'clinical_notes'=>'required'
+
 		);
 		$validator = Validator::make(Input::all(), $rules);
 
@@ -515,7 +546,7 @@ class UnhlsTestController extends \BaseController {
 				array(Input::get('patient_id')))->withInput()->withErrors($validator);
 		} else {
 
-			$visitType = ['Out-patient','In-patient'];
+			$visitType = ['2' => 'Out-patient','1' => 'In-patient'];
 			$activeTest = array();
 
 			/*
@@ -523,6 +554,7 @@ class UnhlsTestController extends \BaseController {
 			 * - Fields required: visit_type, patient_id
 			 */
 			$visit = new UnhlsVisit;
+			$visit->visit_lab_number = Input::get('visit_lab_number');
 			$visit->patient_id = Input::get('patient_id');
 			$visit->visit_type = $visitType[Input::get('visit_type')];
 			$visit->ward_id = Input::get('ward_id');
@@ -536,6 +568,12 @@ class UnhlsTestController extends \BaseController {
 			$therapy->visit_id = $visit->id;
 			$therapy->previous_therapy = Input::get('previous_therapy');
 			$therapy->current_therapy = Input::get('current_therapy');
+
+			$therapy->clinical_notes = Input::get('clinical_notes');
+
+            $therapy->clinician_id = Input::get('clinician');
+            //$therapy->contact = Input::get('phone_contact');
+
 			$therapy->save();
 
 			/*
@@ -561,7 +599,9 @@ class UnhlsTestController extends \BaseController {
                         $test->specimen_id = $specimen->id;
                         $test->test_status_id = UnhlsTest::PENDING;
                         $test->created_by = Auth::user()->id;
-                        $test->requested_by = Input::get('physician');
+                        $test->requested_by = Input::get('clinician');
+                        $therapy->clinician_id = Input::get('clinician');
+
                         $test->purpose = Input::get('hiv_purpose');
                         $test->save();
 
@@ -889,7 +929,9 @@ class UnhlsTestController extends \BaseController {
 	 */
 	public function viewDetails($testID)
 	{
-		return View::make('unhls_test.viewDetails')->with('test', UnhlsTest::find($testID));
+
+		$test = UnhlsTest::find($testID);
+		return View::make('unhls_test.viewDetails')->with('test',$test );
 		
 	}
 
@@ -909,6 +951,26 @@ class UnhlsTestController extends \BaseController {
 
 		//Fire of entry verified event
 		Event::fire('test.verified', array($testID));
+
+		return View::make('unhls_test.viewDetails')->with('test', $test);
+	}
+
+	/**
+	 * Approve Test
+	 *
+	 * @param
+	 * @return
+	 */
+	public function approve($testID)
+	{
+		$test = UnhlsTest::find($testID);
+		$test->test_status_id = UnhlsTest::APPROVED;
+		$test->time_approved = date('Y-m-d H:i:s');
+		$test->approved_by = Auth::user()->id;
+		$test->save();
+
+		//Fire of entry approved event
+		Event::fire('test.approved', array($testID));
 
 		return View::make('unhls_test.viewDetails')->with('test', $test);
 	}
@@ -1027,7 +1089,74 @@ class UnhlsTestController extends \BaseController {
 	{
 
 		// Load the view and pass it the tests
-		return View::make('unhls_test.importPoCResults');
+		return View::make('unhls_test.importPoCResults')
+					->with('message', false)
+					->with('failed_import', false);
+
+	}
+
+	public function uploadPoCResults()
+	{
+
+        if(Input::hasFile('file')){
+
+            $path = Input::file('file')->getRealPath();
+
+            $data = Excel::load($path, function($reader) {
+
+            })->get();
+            
+            //print_r( $data->first() );
+
+            $failed_import = array();
+
+            if(!empty($data) && $data->count()){
+                foreach ($data as $key => $value) {
+
+			        //check for sample id in tests
+					$patient = DB::table('poc_tables')->where('sample_id','=',$value->sample_id)->select('id', 'sample_id')->first();
+
+					if(count($patient)>0)
+					{
+								//avoid duplicate sample id insert
+								$result_exists = POCResult::where('patient_id','=',trim($patient->id))->get();
+
+								if($result_exists->count()==0)
+								{									
+
+										$result = new POCResult;			
+
+										$result->patient_id = $patient->id;
+										$result->test_date = isset($value->test_date)?$value->test_date:date('Y-m-d H:i:s');
+										if(isset($value->result)){
+											$valid_result = $value->result=='Positive'||$value->result=='Negative';
+											$result->results = $valid_result?$value->result:'Error';
+										}else{
+											$result->results = trim(strtolower($value->hiv_1_mn))=="detected"?"Positive":"Negative";
+										}									
+																	
+										$result->save();
+								}	
+					
+					}
+					else
+					{
+						array_push($failed_import, trim($value->sample_id));
+
+	            		//dd(trim($value->sample_id));
+					}
+
+                }
+            		//dd($failed_import);
+				// redirect
+				//return Redirect::to('unhls_test/importPoc')
+				return View::make('unhls_test.importPoCResults')
+							->with('message', 'Import completed successfully')
+							->with('failed_import', $failed_import);
+            }
+
+
+        }
 
 	}
 }

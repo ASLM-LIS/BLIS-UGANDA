@@ -11,6 +11,8 @@ return array(
 
     'actions' => 'Actions',
     'add-another' => 'Add Another',
+    'approve'=>'Approve',
+    'approved'=>'Tests Approved',
     'back' => 'Previous Page',
     'both' => 'Both',
     'cancel' => 'Cancel',
@@ -110,6 +112,7 @@ return array(
     'patient-unhls' => 'Patient Information',
     'patient-details' => 'Patient Details',
     'patient-id' => 'Patient ID',
+    'patient-contact'=>'Contact',
     //'patient-search-button' => 'Go!', UNHLS Terminology
     'patient-search-button' => 'View!',
     'patient-number' => 'Patient OPD/IPD Number.',
@@ -320,7 +323,7 @@ return array(
 
     'all' => 'All',
     'create-new-test' => 'Create New Test',
-    'comments' => 'Comments',
+    'comments' => 'Comment on Sample Suitability',
     'completed' => 'Test Completed',
     'completed-tests' => 'Completed Tests',
     'date-ordered' => 'Date Ordered',
@@ -361,15 +364,17 @@ return array(
     'unknown' => 'Unknown',
     'update-test-results' => 'Update Test Results',
     'verification-pending' => 'Verification Pending',
-    'verified-by' => 'Verified By',
-    'verified' => 'Test Verified',
-    'verify' => 'Verify',
-    'verify-title' => 'Verify Test Results',
+    'verified-by' => 'Reviewed By',
+    'verified' => 'Test Reviewed',
+    'verify' => 'Review',
+    'verify-title' => 'Review Test Results',
     'view-details' => 'View',
     'view-details-title' => 'View Test Details',
     'patient-lab-number' => 'Lab No.',
     'visit-number' => 'Visit No.',
+    'visit-lab-number' => 'Visit Lab No.',//This number is issued at each patient visit in the Lab
     'visit-type' => 'Visit Type',
+
 
     /** 
      *   Tests search panel
@@ -428,7 +433,8 @@ return array(
     'include-pending-tests' => 'Include Pending Tests',
     'include-range-visualization' => 'Include Range Visualization',
     'no-records-found' => 'No records found.',
-    'patient-report' => 'Patient Report',
+    'patient-report' => 'Report',
+    'report-date'=>'Report Date',
     'positivity-rates' => 'Positivity Rates',
     'report' => 'Report|Reports',
     'print' => 'Print',
@@ -437,7 +443,10 @@ return array(
     'results-entry-date' => 'Results Entry Date',
     'test-results-values' => 'Test Results',
     'view-report' => 'View Report',
+    'view-final-report'=>'View Final Report',
+    'view-interim-report'=>'View Interim Report',
     'view-visit-report' => 'View Visit Report',
+    'view-visits' => 'View Visits',
     'view-test-report' => 'View Test Report',
     'test-records'  =>  'Test Records',
     'patient-records' =>    'Patient Records',
@@ -780,5 +789,8 @@ return array(
     'equipment-maintenance'=> 'Equipment maintenance',         
     'supplier-list'=> 'Supplier List',    
     'add'=> 'Add',
+
+    //
+    'ward-type'=>'Type of unit location',
 
 );
