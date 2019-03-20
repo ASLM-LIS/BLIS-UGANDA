@@ -758,10 +758,12 @@ $(function(){
 
     $(function(){
         $('#collection-date').combodate({
-            maxYear: new Date().getFullYear()
+            maxYear: new Date().getFullYear(),
+            minuteStep: 1
         });
-    	$('#reception-date').combodate({
-            maxYear:new Date().getFullYear()
+    	$('#dispatch-date').combodate({
+            maxYear:new Date().getFullYear(),
+            minuteStep: 1
         });
     });
     
