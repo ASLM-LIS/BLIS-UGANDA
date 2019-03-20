@@ -2,7 +2,7 @@
 
 class UNHLSFacility extends Eloquent
 {
-	protected $table = "unhls_facilities";
+	protected $table = "facilities";
 	
 	public function district()
 	{
@@ -22,5 +22,9 @@ class UNHLSFacility extends Eloquent
 	public function bbincidence()
     {
         return $this->hasMany('Bbincidence','facility_id','id');
+	}
+	public function referral(){
+
+		return $this->hasMany('Referral', 'facility_id');
 	}
 }

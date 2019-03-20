@@ -14,9 +14,19 @@ class Referral extends Eloquent
         return $this->belongsTo('User');
     }
 
-    public function facility()
+    public function unhlsFacility()
     {
-    	return $this->belongsTo('UNHLSFacility');
+    	return $this->belongsTo('UNHLSFacility', 'id');
+    }
+
+    public function getFacilityName(){
+        $facilityName = DB::table('facilities')
+                        ->where('id', '=', $this->facility_id)
+                        ->get();
+        $facilityName = json_decode(json_encode ($facilityName), true);
+
+        return $facilityName[0]['name'];
+
     }
 
 }
