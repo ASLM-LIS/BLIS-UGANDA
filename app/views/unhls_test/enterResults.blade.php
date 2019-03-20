@@ -143,7 +143,7 @@
                                                 <p><strong>{{Lang::choice("messages.facility", 1)}}</strong></p>
                                             </div>
                                             <div class="col-md-8">
-                                                {{$test->specimen->referral->facility->name }}
+                                                {{$test->specimen->referral->getFacilityName() }}
                                             </div>
                                         </div>
                                         <div class="row">
