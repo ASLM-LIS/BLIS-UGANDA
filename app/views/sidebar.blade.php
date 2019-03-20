@@ -147,6 +147,10 @@
 						<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px; width: 215px; display: none;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px; height: 620px; display: none;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>
 					</div>
 				</li>
+				<li>
+					<a href="{{ URL::route('visit.index') }}"><span class="ion-person"></span><span class="nav_title">Visits</span>
+					</a>
+				</li>
 				<li class="nav_trigger">
 					<a href="#">
 						<span class="ion-erlenmeyer-flask"></span>

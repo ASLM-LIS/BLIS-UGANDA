@@ -217,6 +217,53 @@ Route::group(array("before" => "auth"), function()
             "uses" => "MeasureNameMappingController@update"
         ));
 
+            /*Visit Management*/
+        Route::any("/visit", array(
+            "as"   => "visit.index",
+            "uses" => "VisitController@index"
+        ));
+        Route::get("/visit/show/{visit_id}", array(
+            "as"   => "visit.show",
+            "uses" => "VisitController@show"
+        ));
+        Route::get("/visit/create/{patient_id}", array(
+            "as"   => "visit.create",
+            "uses" => "VisitController@create"
+        ));
+        Route::post("/visit/store", array(
+            "as"   => "visit.store",
+            "uses" => "VisitController@store"
+        ));
+        Route::post("/visit/update/{visit_id}", array(
+            "as"   => "visit.update",
+            "uses" => "VisitController@update"
+        ));
+        Route::get("/visit/edit/{visit_id}", array(
+            "as"   => "visit.edit",
+            "uses" => "VisitController@edit"
+        ));
+        Route::get("/visit/destroy/{visit_id}", array(
+            "as"   => "visit.destroy",
+            "uses" => "VisitController@destroy"
+        ));
+        Route::post("/visit/testlist", array(
+            "as"   => "visit.testList",
+            "uses" => "VisitController@testList"
+        ));
+        Route::get("/visit/addtest/{visit_id}", array(
+            "as"   => "visit.addtest",
+            "uses" => "VisitController@getAddTest"
+        ));
+        Route::post("/visit/clinicianaddtest/{visit_id}", array(
+            "as"   => "visit.clinicianpostaddtest",
+            "uses" => "VisitController@clinicianPostAddTest"
+        ));
+        Route::post("/visit/technologistaddtest/{visit_id}", array(
+            "as"   => "visit.technologistpostaddtest",
+            "uses" => "VisitController@technologistPostAddTest"
+        ));
+
+
         // Route::resource('measurenamemapping', 'MeasureNameMappingController');
         Route::get("/instrument/{id}/delete", array(
             "as"   => "instrument.delete",
