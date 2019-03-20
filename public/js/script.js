@@ -761,6 +761,10 @@ $(function(){
             maxYear: new Date().getFullYear(),
             minuteStep: 1
         });
+         $('#reception-date').combodate({
+            maxYear: new Date().getFullYear(),
+            minuteStep: 1
+        });
     	$('#dispatch-date').combodate({
             maxYear:new Date().getFullYear(),
             minuteStep: 1
