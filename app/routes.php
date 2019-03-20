@@ -402,6 +402,10 @@ Route::group(array("before" => "auth"), function()
         "as"   => "unhls_test.viewDetails",
         "uses" => "UnhlsTestController@viewDetails"
     ));
+    Route::get("/unhls_test/{test}/delete", array(
+        "as"   => "unhls_test.delete",
+        "uses" => "UnhlsTestController@delete"
+    ));
     //Test viewDetail ends
     Route::any("/test/{test}/verify", array(
         "before" => "checkPerms:verify_test_results",
