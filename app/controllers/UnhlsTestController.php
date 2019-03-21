@@ -467,9 +467,9 @@ class UnhlsTestController extends \BaseController {
 
 		//Create a Lab categories Array
 		$categories = ['Select Lab Section']+TestCategory::lists('name', 'id');
-		$wards = ['--Select ward--']+Ward::lists('name', 'id');
+		$wards = ['Select Sample Origin']+Ward::lists('name', 'id');
 		$clinicians = ['Select clinician']+Clinician::lists('name', 'id');
-		
+
 		// sample collection default details
 		$now = new DateTime();
 		$collectionDate = $now->format('Y-m-d H:i');
@@ -981,14 +981,34 @@ class UnhlsTestController extends \BaseController {
 	 * @param specimenId
 	 * @return View
 	 */
-	public function showRefer($testid)
+	public function showRefer($specimenId)
 	{
-		$test = UnhlsTest::find($testid);
+		// sample collection default details
+		$now = new DateTime();
+		$dispatchDate = $now->format('Y-m-d H:i');
+		$receptionDate = $now->format('Y-m-d H:i');
+
+		$specimen = UnhlsSpecimen::find($specimenId);
+		$testdetails = DB::table('unhls_tests')
+							->join('test_types', 'unhls_tests.test_type_id', '=' , 'test_types.id')
+							->join('specimens', 'unhls_tests.specimen_id', '=', 'specimens.id')
+							->join('unhls_visits', 'unhls_tests.visit_id', '=' ,'unhls_visits.id')
+							->join('unhls_patients', 'unhls_visits.patient_id', '=' ,'unhls_patients.id')
+							->where('unhls_tests.specimen_id', '=', $specimenId)
+							->get(['test_types.name', 'unhls_patients.ulin', 'unhls_patients.nin', 'specimens.time_collected' ]);
+		//Convert Array of objects to arrays
+		$testdetails = json_decode(json_encode ($testdetails), true);					
+		
 		$facilities = UNHLSFacility::all();
 		//Referral facilities
 		$referralReason = ReferralReason::all();
+		// dd($unhlspatient);
 		return View::make('unhls_test.refer')
-			->with('test', $test)
+			->with('now', $now)
+			->with('dispatchDate', $dispatchDate)
+			->with('receptionDate', $receptionDate)
+			->with('specimen', $specimen)
+			->with('testdetails', $testdetails)
 			->with('facilities', $facilities)
 			->with('referralReason', $referralReason);
 
@@ -1021,8 +1041,8 @@ class UnhlsTestController extends \BaseController {
 		$referral->status = Input::get('referral-status');
 		$referral->sample_obtainer = Input::get('sample-obtainer');
 		$referral->cadre_obtainer = Input::get('cadre-obtainer');
-		$referral->sample_date = Input::get('sample-date');
-		$referral->sample_time = Input::get('sample-time');
+		$referral->sample_date = Input::get('reception_date');
+		$referral->sample_time = Input::get('reception_date');
 		$referral->time_dispatch = Input::get('time-dispatch');
 		$referral->storage_condition = Input::get('storage-condition');
 		$referral->transport_type = Input::get('transport-type');
@@ -1043,14 +1063,14 @@ class UnhlsTestController extends \BaseController {
 		});
 
 		//Start test
-		Input::merge(array('id' => $specimen->test->id)); //Add the testID to the Input
+		Input::merge(array('id' => $specimen->tests->first()->id)); //Add the testID to the Input
 		$this->start();
 
 		//Return view
 		$url = Session::get('SOURCE_URL');
 		
 		return Redirect::to($url)->with('message', trans('messages.specimen-successful-refer'))
-					->with('activeTest', array($specimen->test->id));
+					->with('activeTest', array($specimen->tests->first()->id));
 	}
 
 	/**
