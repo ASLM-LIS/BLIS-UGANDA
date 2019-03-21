@@ -48,7 +48,7 @@ class UserController extends Controller {
     }
 
 	public function dashboard(){
-        return View::make("user.dashboard");
+        return View::make("user.home");
     }
 
 

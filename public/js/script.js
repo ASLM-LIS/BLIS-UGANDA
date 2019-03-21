@@ -758,16 +758,10 @@ $(function(){
 
     $(function(){
         $('#collection-date').combodate({
-            maxYear: new Date().getFullYear(),
-            minuteStep: 1
+            maxYear: new Date().getFullYear()
         });
-         $('#reception-date').combodate({
-            maxYear: new Date().getFullYear(),
-            minuteStep: 1
-        });
-    	$('#dispatch-date').combodate({
-            maxYear:new Date().getFullYear(),
-            minuteStep: 1
+    	$('#reception-date').combodate({
+            maxYear:new Date().getFullYear()
         });
     });
     
@@ -775,9 +769,12 @@ $(function(){
      * Disable Bed No: input field  based on Visit type selected
      */
      $("#visit_type").on('change', function() {
-        if(this.value === "0" || this.value === "null") {
+        if(this.value === "0" || this.value === "null" || this.value == 2) {
+			$("#ward_id").val('');
+			$("#bed_no").val('');
             $("#bed_no").prop("disabled", true);
             $("#ward_id").prop("disabled", true);
+			
         } else{
             $("#bed_no").prop("disabled", false);
             $("#ward_id").prop("disabled", false);

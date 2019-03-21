@@ -105,7 +105,7 @@
 							<h4 class="panel_heading panel_heading_first">Dashboard</h4>
 							<ul>
 								<li>
-									<div><a href="{{ URL::route('dashboard.index')}}">
+									<div><a href="{{ URL::route('user.dashboard')}}">
 										<span class="glyphicon glyphicon-tag"></span>
 										Dashboard</a>
 									</div>
@@ -129,27 +129,29 @@
 											<span class="glyphicon glyphicon-tag"></span> {{Lang::choice('messages.register-new-patient', 1)}}</a>
 									</div>
 								</li>
-																<li>
-									<div>
-										<a href="{{ URL::route('poc.create') }}">
-											<span class="glyphicon glyphicon-tag"></span> {{"Register EID patient"}}</a>
-									</div>
-								</li>
+																
 								<li>
 									<div>
 										<a href="{{ URL::route('unhls_patient.index') }}">
 											<span class="glyphicon glyphicon-tag"></span> {{Lang::choice('messages.view-patients', 1)}}</a>
 									</div>
 								</li>
-
+								<li>
+									<div>
+										<a href="{{ URL::route('poc.create') }}">
+											<span class="glyphicon glyphicon-tag"></span> {{"Register POC patient"}}</a>
+									</div>
+								</li>
+                                <li>
+									<div>
+										<a href="{{ URL::route('poc.index') }}">
+											<span class="glyphicon glyphicon-tag"></span> {{"Existing POC patient"}}</a>
+									</div>
+								</li>
 							</ul>
 
 						<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px; width: 215px; display: none;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px; height: 620px; display: none;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>
 					</div>
-				</li>
-				<li>
-					<a href="{{ URL::route('visit.index') }}"><span class="ion-person"></span><span class="nav_title">Visits</span>
-					</a>
 				</li>
 				<li class="nav_trigger">
 					<a href="#">
@@ -266,10 +268,6 @@
 								<li>
 									<a href="{{ URL::route("blisclient.index") }}">
 									<span class="glyphicon glyphicon-tag"></span>{{ trans('messages.interfaced-equipment')}}</a>
-								</li>
-								<li>
-									<a href="{{ URL::route("resetulin.create") }}">
-									<span class="glyphicon glyphicon-tag"></span>{{'Reset ULIN' }}</a>
 								</li>
 							</ul>
 						</div>
