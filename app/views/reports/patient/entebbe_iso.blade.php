@@ -89,11 +89,12 @@
 							<!-- show only parameters with values -->
 							@if($result->result != '')
 							<tr>
-								@if($test->testType->measures->count() > 1)
-								<td>
+								
+								<td>@if($test->testType->measures->count() > 1)
 									{{ Measure::find($result->measure_id)->name }}:
+                                    @endif
 								</td>
-								@endif
+								
 								<td>
 								{{ $result->result }}
 								</td>

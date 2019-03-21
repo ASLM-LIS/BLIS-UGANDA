@@ -46,13 +46,13 @@ Route::group(array("before" => "auth"), function()
         "uses" => "UserController@homeAction"
         ));
 
-    Route::any('/dashboard', array(
+	Route::any('/dashboard', array(
         "as" => "user.dashboard",
-        "uses" => "UserController@dashboard"
+        "uses" => "DashboardController@index"
         ));
 	Route::any('/dashboardpage', array(
         "as" => "dashboard.index",
-        "uses" => "UserController@dashboard"
+        "uses" => "DashboardController@index"
         ));
     Route::group(array("before" => "checkPerms:manage_users"), function() {
         Route::resource('user', 'UserController');
