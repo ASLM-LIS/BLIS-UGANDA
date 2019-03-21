@@ -78,8 +78,8 @@
                 </div>
                 <div class="form-group">
                         {{ Form::label('storage-condition', trans("messages.storage-condition")) }}
-                        {{ Form::select('storage-condition', [' ' => '--- Select storage type ---','1' => 'Cold Chain','2' => 'Room Temp', '3' => 'Other'], null,
-                                     array('class' => 'form-control', 'id' => 'storage_condition_dropdown_id')) }}
+                        {{ Form::select('storage-condition', array(null => '--Select storage type --')+ array('0' => 'Cold Chain','1' => 'Room Temp', '2' => 'Other'), Input::old('storage-condition'),
+                                     array('class' => 'form-control', 'id' => 'storage-condition_-id')) }}
                 </div>
                 <div class = "form-group" id ="other_storage" style="display:none"> <!--TODO avoid the inline css -->
                     {{Form::text('storage-condition', Input::old('storage_condition'), array('class' => 'form-control', 'placeholder' => 'Other (Specify)'))}}
