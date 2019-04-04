@@ -28,7 +28,7 @@
 	    @if(isset($tests))
 	        @forelse($tests as $test)
 	                <tr>    
-	                    <td>{{ isset($test->specimen->specimenType->name)? $test->specimen->specimenType->name : ''}}</td>
+	                    <td>{{ isset($test->specimen->id)? $test->specimen->specimenType->name : ''}}</td>
 
 	                    @if($test->specimen->specimen_status_id == UnhlsSpecimen::NOT_COLLECTED)
 	                        
@@ -44,7 +44,7 @@
 	                        
 	                    @endif
 
-	                    <td >{{ isset($test->testType->testCategory->name)?$test->testType->testCategory->name:'' }}</td>
+	                    <td >{{ isset($test->testType->id)?$test->testType->testCategory->name:'' }}</td>
 	                    <td >{{ isset($test->testType->name)?$test->testType->name:'' }}</td>
 	                </tr>
 	        @empty

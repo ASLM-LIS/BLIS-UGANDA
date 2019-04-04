@@ -91,7 +91,7 @@
 							<p class="view"><strong>{{trans('messages.test-status')}}</strong>
 								{{trans('messages.'.$test->testStatus->name)}}</p>
 							<p class="view-striped"><strong>{{trans('messages.physician')}}</strong>
-								{{$test->requested_by or trans('messages.unknown') }}</p>
+								{{$test->clinician->name or trans('messages.unknown') }}</p>
 							@if($test->testType->name = 'HIV' || $test->testType->name = 'H.I.V' )
 								<p class="view-striped"><strong>{{trans('messages.purpose')}}</strong>
 									{{$test->purpose or trans('messages.unknown') }}</p>

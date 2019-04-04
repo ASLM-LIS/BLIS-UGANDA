@@ -231,7 +231,7 @@
                                         @elseif($test->isStarted())
                                             <span class='label label-warning'>
                                                 {{trans('messages.started')}}</span>
-                                        @elseif($test->isCompleted())
+                                        @elseif($test->isApproved())
                                             <span class='label label-primary'>
                                                 {{trans('messages.completed')}}</span>
                                         @elseif($test->isVerified())

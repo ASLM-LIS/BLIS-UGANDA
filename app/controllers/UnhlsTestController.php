@@ -45,7 +45,10 @@ class UnhlsTestController extends \BaseController {
 				$dateFrom = '';
 				$dateTo = '';
 			}
-
+			//If status completed set it to to approved
+			if($testStatusId==4){
+				$testStatusId = 7;
+			}
 			$tests = UnhlsTest::search($searchString, $testStatusId, $dateFrom, $dateTo);
 
 			if (count($tests) == 0) {
@@ -931,7 +934,8 @@ class UnhlsTestController extends \BaseController {
 	{
 
 		$test = UnhlsTest::find($testID);
-		return View::make('unhls_test.viewDetails')->with('test',$test );
+		$test_info = $test->clinician;
+		return View::make('unhls_test.viewDetails')->with('test',$test )->with('clinician', $test_info);
 		
 	}
 

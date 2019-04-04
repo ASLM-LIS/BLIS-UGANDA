@@ -46,7 +46,7 @@
 		<td width="20%"><strong>Requesting Officer</strong>:</td>
 		<td width="30%">
 		@if(isset($tests))
-			{{ is_null($tests->first()) ? '':$tests->first()->requested_by }}
+			{{ is_null($tests->first()) ? '':$tests->first()->name }}
 		@endif
 		</td>
 

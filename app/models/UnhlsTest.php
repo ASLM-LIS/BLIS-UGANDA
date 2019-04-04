@@ -52,17 +52,11 @@ class UnhlsTest extends Eloquent
 	
 
    /**
-	*
-	*
+	*Clinician relationship
 	*/
 	public function clinician()
 	{
-		return $this->belongsTo('Clinician','clinician_id');
-	}
-
-	public function getClinician()
-	{
-		return Clinician::find($this->clinician_id);
+		return $this->belongsTo('Clinician','id');
 	}
 	/**
 	 * Test Type relationship
