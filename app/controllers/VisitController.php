@@ -23,14 +23,15 @@ class VisitController extends \BaseController {
 
 		$searchString = isset($input['search'])?$input['search']:'';
 
-		if (Auth::user()->can('manage_visits')) {
-			$visitStatusId = isset($input['visit_status'])?$input['visit_status']:'';
-		}elseif (Auth::user()->can('make_labrequests')) {
-			$visitStatusId = UnhlsVisit::APPOINTMENT_MADE;
-		}else{
-			// for the guy in the lab with no permission to manage visits
-			$visitStatusId = UnhlsVisit::TEST_REQUEST_MADE;
-		}
+		// if (Auth::user()->can('manage_visits')) {
+		// 	$visitStatusId = isset($input['visit_status'])?$input['visit_status']:'';
+		// }elseif (Auth::user()->can('make_labrequests')) {
+		// 	$visitStatusId = UnhlsVisit::APPOINTMENT_MADE;
+		// }else{
+		// 	// for the guy in the lab with no permission to manage visits
+		// 	$visitStatusId = UnhlsVisit::TEST_REQUEST_MADE;
+		// }
+		$visitStatusId = 0;
 		$dateFrom = isset($input['date_from'])?$input['date_from']:date('Y-m-d');
 		$dateTo = isset($input['date_to'])?$input['date_to']:date('Y-m-d');
 

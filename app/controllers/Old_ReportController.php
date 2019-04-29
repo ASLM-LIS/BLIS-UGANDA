@@ -237,19 +237,19 @@ class ReportController extends \BaseController {
 			$tests = UnhlsTest::where('visit_id', '=', $visit?$visit:$visitId);
 		}
 		else{
-			$tests = UnhlsTest::join('unhls_visits', 'unhls_visits.id', '=', 'unhls_tests.visit_id')
+			/*$tests = UnhlsTest::join('unhls_visits', 'unhls_visits.id', '=', 'unhls_tests.visit_id')
 							->where('patient_id', '=', $id);
-			
+			*/
 			
 
 		    
 		}
 		//	Begin filters - include/exclude pending tests
-		if($pending){
+		/**if($pending){
 			$tests=$tests->where('unhls_tests.test_status_id', '!=', UnhlsTest::SPECIMEN_NOT_RECEIVED);
 		}
 		else{
-			$tests = $tests->whereIn('unhls_tests.test_status_id', [UnhlsTest::COMPLETED, UnhlsTest::VERIFIED, UnhlsTest::APPROVED]);
+			$tests = $tests->whereIn('unhls_tests.test_status_id', [UnhlsTest::COMPLETED, UnhlsTest::VERIFIED]);
 		}
 		//	Date filters
 		if($from||$to){
@@ -277,7 +277,7 @@ class ReportController extends \BaseController {
 				array_push($verified, $test->id);
 			else
 				continue;
-		}
+		}*/
 
 		//	Get patient details
 		$patient = UnhlsPatient::find($id);
@@ -307,7 +307,7 @@ class ReportController extends \BaseController {
 			
 			->withInput(Input::all());
 
-			$content = View::make($template)
+			/*$content = View::make($template)
 			->with('patient', $patient)
 			->with('tests', $tests)
 			->with('pending', $pending)
@@ -315,7 +315,7 @@ class ReportController extends \BaseController {
 			->with('visit', $visit)
 			->with('accredited', $accredited)
 			->with('verified', $verified)
-			->withInput(Input::all());
+			->withInput(Input::all());*/
 
 		ob_end_clean();
 		
@@ -594,11 +594,11 @@ class ReportController extends \BaseController {
 			}
 			else if($pendingOrAll=='all'){
 				$tests = $tests->whereIn('test_status_id',
-					[UnhlsTest::PENDING, UnhlsTest::STARTED, UnhlsTest::APPROVED, UnhlsTest::VERIFIED, UnhlsTest::COMPLETED]);
+					[UnhlsTest::PENDING, UnhlsTest::STARTED, UnhlsTest::COMPLETED, UnhlsTest::VERIFIED]);
 			}
 			//For Complete tests and the default.
 			else{
-				$tests = $tests->whereIn('test_status_id', [UnhlsTest::APPROVED, UnhlsTest::VERIFIED, UnhlsTest::COMPLETED]);
+				$tests = $tests->whereIn('test_status_id', [UnhlsTest::COMPLETED, UnhlsTest::VERIFIED]);
 			}
 			/*Get collection of tests*/
 			/*Filter by date*/
@@ -943,7 +943,7 @@ class ReportController extends \BaseController {
 			$ungroupedTests = array();
 			foreach (TestType::all() as $testType) {
 				$pending = $testType->countPerStatus([UnhlsTest::PENDING, UnhlsTest::STARTED], $from, $toPlusOne->format('Y-m-d H:i:s'));
-				$complete = $testType->countPerStatus([UnhlsTest::APPROVED], $from, $toPlusOne->format('Y-m-d H:i:s'));
+				$complete = $testType->countPerStatus([UnhlsTest::COMPLETED, UnhlsTest::VERIFIED], $from, $toPlusOne->format('Y-m-d H:i:s'));
 				$ungroupedTests[$testType->id] = ["complete"=>$complete, "pending"=>$pending];
 			}
 
@@ -995,7 +995,7 @@ class ReportController extends \BaseController {
 	public static function rawTaT($from, $to, $labSection, $testType){
 		$rawTat = DB::table('unhls_tests')->select(DB::raw('UNIX_TIMESTAMP(time_created) as timeCreated, UNIX_TIMESTAMP(time_started) as timeStarted, UNIX_TIMESTAMP(time_completed) as timeCompleted, targetTAT'))
 						->join('test_types', 'test_types.id', '=', 'unhls_tests.test_type_id')
-						->whereIn('test_status_id', [UnhlsTest::APPROVED, UnhlsTest::VERIFIED, UnhlsTest::APPROVED]);
+						->whereIn('test_status_id', [UnhlsTest::COMPLETED, UnhlsTest::VERIFIED]);
 						if($from && $to){
 							$rawTat = $rawTat->whereBetween('time_created', [$from, $to]);
 						}

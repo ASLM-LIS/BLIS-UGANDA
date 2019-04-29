@@ -30,7 +30,10 @@ Route::group(array("before" => "guest"), function()
         "uses" => "InterfacerController@getTests"
     ));
     Route::post('/api/saveresults', array(
-        "uses" => "InterfacerController@saveTestResults"
+        "uses" => "InterfacerController@saveTestResultsFromInstrument"
+    ));
+    Route::post('/api/saveTestResultsFromInstrument', array(
+        "uses" => "InterfacerController@saveTestResultsFromInstrument"
     ));
     Route::any('/', array(
         "as" => "user.login",

@@ -34,7 +34,7 @@ class EquipmentInventoryController extends \BaseController {
 	{
 		//
 		$procurement_type_list = array('0' => 'Placement', '1' => 'Procured');
-		$location_list = array('0' => 'Chemistry', '1' => 'Microbiology', '2' => 'Mycology','3' => 'Heamatology', '4' => 'Serology', '5' => 'Blood Transfusion', '6' => 'Immunology', '7' => 'Ecology', '8' => 'Parasitology', '9' => 'Pathology');
+		$location_list = array('0' => 'Chemistry', '1' => 'Microbiology', '2' => 'Mycology','3' => 'Heamatology', '4' => 'Serology', '5' => 'Blood Transfusion', '6' => 'Immunology', '7' => 'Ecology', '8' => 'Parasitology', '9' => 'Pathology', '10' => 'Automated lab', '11' => 'Main Lab', '12' => 'Stores', '13' => 'Katadooba', '14' =>'Obsolete', '15' =>'Store fridge', '16' => 'Phlebotomy');
 		$yes_no_list = array('1' => 'Yes', '0' => 'No');
 		$service_frequency_list = array('0' => '3 months', '1' => '6 months', '2' => '9 months', '4' => '12 months');
 		$warranty_list = array('0' => '6 months','1' => '1 year', '2' => '2 years', '3' => '3 years', '4' => '4 years', '5' => '5 years');

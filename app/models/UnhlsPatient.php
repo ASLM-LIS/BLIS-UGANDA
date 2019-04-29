@@ -163,7 +163,8 @@ class UnhlsPatient extends Eloquent
 			return $initials.'/'.$month.'/'.$autoNum.'/'.$year;
 			// MG/12/220/17
 		}else{
-			$yearMonth = date('ym', $registrationDate);
+			//$yearMonth = date('ym', $registrationDate);
+			$monthYear = date('my', $registrationDate);
 			$autoNum = DB::table('uuids')->max('id')+1;
 			$name = preg_split("/\s+/", trim($this->name));
 			$initials = null;
@@ -172,7 +173,8 @@ class UnhlsPatient extends Eloquent
 				$initials .= $n[0];
 
 			}
-			return $facilityCode.'/'.$yearMonth.'/'.$autoNum.'/'.$initials;
+			//return $facilityCode.'/'.$yearMonth.'/'.$autoNum.'/'.$initials;
+			return $autoNum.'/'.$monthYear.'/'.$initials;
 		}
     }
 }

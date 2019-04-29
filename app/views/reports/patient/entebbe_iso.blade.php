@@ -28,7 +28,7 @@
 	    @if(isset($tests))
 	        @forelse($tests as $test)
 	                <tr>    
-	                    <td>{{ isset($test->specimen->specimenType->name)? $test->specimen->specimenType->name : ''}}</td>
+	                    <td>{{ isset($test->specimen->id)? $test->specimen->specimenType->name : ''}}</td>
 
 	                    @if($test->specimen->specimen_status_id == UnhlsSpecimen::NOT_COLLECTED)
 	                        
@@ -44,7 +44,7 @@
 	                        
 	                    @endif
 
-	                    <td >{{ isset($test->testType->testCategory->name)?$test->testType->testCategory->name:'' }}</td>
+	                    <td >{{ isset($test->testType->id)?$test->testType->testCategory->name:'' }}</td>
 	                    <td >{{ isset($test->testType->name)?$test->testType->name:'' }}</td>
 	                </tr>
 	        @empty
@@ -89,11 +89,9 @@
 							<!-- show only parameters with values -->
 							@if($result->result != '')
 							<tr>
-								@if($test->testType->measures->count() > 1)
 								<td>
-									{{ Measure::find($result->measure_id)->name }}:
+									{{ is_null(Measure::find($result->measure_id)->name)? '': Measure::find($result->measure_id)->name}}:
 								</td>
-								@endif
 								<td>
 								{{ $result->result }}
 								</td>

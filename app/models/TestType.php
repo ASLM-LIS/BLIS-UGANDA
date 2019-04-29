@@ -234,7 +234,7 @@ class TestType extends Eloquent
 					})
 				->join('measures', 'testtype_measures.measure_id', '=', 'measures.id')
 				->where('test_types.id', '=', $this->id)
-				->whereIn('test_status_id', array(UnhlsTest::COMPLETED, UnhlsTest::VERIFIED))
+				->whereIn('test_status_id', array(UnhlsTest::COMPLETED, UnhlsTest::VERIFIED, UnhlsTest::APPROVED))
 				->where('measures.measure_type_id', '=', Measure::ALPHANUMERIC)
 				->where(function($query){
 					$query->where('measure_ranges.alphanumeric', '=', 'Positive')
@@ -282,7 +282,7 @@ class TestType extends Eloquent
 						->on('testtype_measures.measure_id', '=', 'unhls_test_results.measure_id');
 					})
 				->join('measure_types', 'measure_types.id', '=', 'measures.measure_type_id')
-				->whereIn('test_status_id', array(UnhlsTest::COMPLETED, UnhlsTest::VERIFIED))
+				->whereIn('test_status_id', array(UnhlsTest::COMPLETED, UnhlsTest::VERIFIED, UnhlsTest::APPROVED))
 				->where(function($query) use ($testTypeID){
 					if ($testTypeID != 0) {
 						$query->where('unhls_tests.test_type_id', $testTypeID);
@@ -340,7 +340,7 @@ class TestType extends Eloquent
 	*/
 	public function groupedTestCount($gender=null, $ageRange=null, $from=null, $to=null){
 			$tests = UnhlsTest::where('test_type_id', $this->id)
-						 ->whereIn('test_status_id', [UnhlsTest::COMPLETED, UnhlsTest::VERIFIED]);
+						 ->whereIn('test_status_id', [UnhlsTest::COMPLETED, UnhlsTest::VERIFIED, UnhlsTest::APPROVED]);
 			if($to && $from){
 				$tests = $tests->whereBetween('time_created', [$from, $to]);
 			}

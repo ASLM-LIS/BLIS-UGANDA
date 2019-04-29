@@ -182,7 +182,7 @@
 						<td>{{ $test->specimen->specimentype->name }}</td>
 						<td>{{ $test->specimen->time_accepted }}</td>
 						<td>{{ $test->testType->name }}</td>
-						<td>{{ $test->testedBy->name or trans('messages.pending') }}</td>
+						<td>{{ !is_null($test->isCompleted())?$test->testedBy->name:'Pending' or trans('messages.pending') }}</td>
 						<td>
 							@foreach($test->testResults as $result)
 								<p>{{Measure::find($result->measure_id)->name}}: {{$result->result}}</p>
@@ -190,7 +190,7 @@
 						</td>
 						<td>{{ $test->interpretation }}</td>
 						<td>{{ $test->time_completed or trans('messages.pending') }}</td>
-						<td>{{ $test->verifiedBy->name or trans('messages.verification-pending') }}</td>
+						<td>{{ is_null($tests->first()->approvedBy->name)? trans('messages.verification-pending'): $tests->first()->approvedBy->name }}</td>
 					</tr>
 					@empty
 					<tr><td colspan="12">{{trans('messages.no-records-found')}}</td></tr>

@@ -24,7 +24,7 @@ class UnhlsTest extends Eloquent
 	// todo: consider how to consider it's pending, completed and verified statuses without confusion
 	const REFERRED_IN = 7;
 	const REFERRED_OUT = 8;
-	const APPROVED = 7;//The final phase of a test. This means that all tests for this patient's visit are ready to be officially handed over
+	const APPROVED = 9;//The final phase of a test. This means that all tests for this patient's visit are ready to be officially handed over
 
 
 	/**
@@ -52,17 +52,11 @@ class UnhlsTest extends Eloquent
 	
 
    /**
-	*
-	*
+	*Clinician relationship
 	*/
 	public function clinician()
 	{
-		return $this->belongsTo('Clinician','clinician_id');
-	}
-
-	public function getClinician()
-	{
-		return Clinician::find($this->clinician_id);
+		return $this->belongsTo('Clinician','id');
 	}
 	/**
 	 * Test Type relationship
@@ -211,7 +205,7 @@ class UnhlsTest extends Eloquent
 	 */
 	public function isCompleted()
 	{
-		if($this->test_status_id == UnhlsTest::COMPLETED || $this->test_status_id == UnhlsTest::VERIFIED)
+		if($this->test_status_id == UnhlsTest::COMPLETED || $this->test_status_id == UnhlsTest::VERIFIED || $this->test_status_id == UnhlsTest::APPROVED)
 			return true;
 		else 
 			return false;
@@ -421,7 +415,7 @@ class UnhlsTest extends Eloquent
 					INNER JOIN unhls_visits v ON t.visit_id = v.id
 					INNER JOIN unhls_patients p ON v.patient_id = p.id
 					INNER JOIN unhls_test_results tr ON t.id = tr.test_id AND m.id = tr.measure_id
-				WHERE (t.test_status_id=4 OR t.test_status_id=5) AND m.measure_type_id = 2
+				WHERE (t.test_status_id=4 OR t.test_status_id=5 OR t.test_status_id=9) AND m.measure_type_id = 2
 					AND t.time_created BETWEEN ? AND ? $testCategoryWhereClause
 				GROUP BY tt.id, m.id, mr.alphanumeric, s.id) AS alpha
 				UNION
@@ -499,7 +493,7 @@ class UnhlsTest extends Eloquent
 					INNER JOIN unhls_visits v ON t.visit_id = v.id
 					INNER JOIN unhls_patients p ON v.patient_id = p.id
 					INNER JOIN unhls_test_results tr ON t.id = tr.test_id AND tm.measure_id = tr.measure_id
-				WHERE (t.test_status_id=4 OR t.test_status_id=5) AND mmr.measure_type_id = 1 
+				WHERE (t.test_status_id=4 OR t.test_status_id=5 OR t.test_status_id=9) AND mmr.measure_type_id = 1 
 					AND t.time_created BETWEEN ? AND ? $testCategoryWhereClause
 				GROUP BY tt.id, tm.measure_id, mmr.result_alias, s.id) 
 			ORDER BY test_name, measure_name, result, gender",
@@ -590,7 +584,7 @@ class UnhlsTest extends Eloquent
 	* @return Collection 
 	*/
 	// todo: =this should include verified tests
-	public static function completedTests($searchString = '', $testStatusId = 4, $dateFrom = NULL, $dateTo = NULL)
+	public static function completedTests($searchString = '', $testStatusId = 9, $dateFrom = NULL, $dateTo = NULL)
 	{
 
 		$tests = UnhlsTest::with('visit', 'visit.patient', 'testType', 'specimen', 'testStatus', 'testStatus.testPhase')

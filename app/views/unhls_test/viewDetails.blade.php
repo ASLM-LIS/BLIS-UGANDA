@@ -23,7 +23,7 @@
 								</a>
 							@endif
 							@if(Auth::user()->can('verify_test_results'))
-								@if(!$test->isVerified())
+								@if(!$test->isVerified() && !$test->isApproved())
 								<a class="btn btn-sm btn-success" href="{{ URL::route('test.verify', array($test->id)) }}">
 									<span class="glyphicon glyphicon-thumbs-up"></span>
 									{{trans('messages.verify')}}
@@ -91,7 +91,7 @@
 							<p class="view"><strong>{{trans('messages.test-status')}}</strong>
 								{{trans('messages.'.$test->testStatus->name)}}</p>
 							<p class="view-striped"><strong>{{trans('messages.physician')}}</strong>
-								{{$test->requested_by or trans('messages.unknown') }}</p>
+								{{$test->clinician->name}}</p>
 							@if($test->testType->name = 'HIV' || $test->testType->name = 'H.I.V' )
 								<p class="view-striped"><strong>{{trans('messages.purpose')}}</strong>
 									{{$test->purpose or trans('messages.unknown') }}</p>
@@ -112,7 +112,7 @@
 							<p class="view"><strong>{{trans('messages.verified-by')}}</strong>
 								{{$test->verifiedBy->name}}</p>
 							@endif
-							@if((!$test->specimen->isRejected()) && ($test->isCompleted() || $test->isVerified()))
+							@if((!$test->specimen->isRejected()) && ($test->isCompleted() || $test->isVerified() || $test->isApproved))
 							<!-- Not Rejected and (Verified or Completed)-->
 							<p class="view-striped"><strong>{{trans('messages.turnaround-time')}}</strong>
 								{{$test->getFormattedTurnaroundTime()}}</p>

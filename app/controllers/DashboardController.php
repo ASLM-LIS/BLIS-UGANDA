@@ -30,22 +30,22 @@ class DashboardController extends Controller {
        
        
 
-        $patients = UnhlsVisit::whereBetween('created_at', [$from, $to]);
-        $patientCounts = $patients->count();
+        $patientCounts = UnhlsVisit::all()->count();
+        $opdCounts = UnhlsVisit::whereIn('visit_type', ['Out-patient'])->count();
         if($patientCounts > 0){
-            $outPatients = round($patients->whereVisitType('Out-Patient')->count() * 100/$patientCounts, 0);
+            $outPatients = round($opdCounts * 100/$patientCounts, 0);
         }else{
             $outPatients = 0.00;
         }
 
-        $testCounts = UnhlsTest::where('test_status_id', '=', UnhlsTest::COMPLETED)->orWhere('test_status_id', '=', UnhlsTest::VERIFIED)
-                    ->whereBetween('time_created', [$from, $to])->count();
+        $testCounts = UnhlsTest::whereIn('test_status_id', [UnhlsTest::COMPLETED, UnhlsTest::VERIFIED, UnhlsTest::APPROVED])
+                    ->count();
 
         $testsReffered = UnhlsTest::where('test_status_id', '=', UnhlsTest::REFERRED_OUT)->whereBetween('time_created', [$from, $to])->count();
         
         $samplesRejected = UnhlsTest::where('test_status_id', '=', UnhlsTest::REJECTED)->whereBetween('time_created', [$from, $to])->count();
 
-        $sampleCounts = UnhlsSpecimen::whereBetween('time_collected', [$from, $to])->count();
+        $sampleCounts = UnhlsSpecimen::all()->count();
         
         if($sampleCounts > 0){
             $samplesAccepted = round(($sampleCounts - $samplesRejected) * 100/$sampleCounts, 2);
