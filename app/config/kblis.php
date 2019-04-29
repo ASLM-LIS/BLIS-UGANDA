@@ -47,7 +47,7 @@ return array(
 	|--------------------------------------------------------------------------
 	|
 	*/
-	'address-info' => 'Private Bag, Kasese<br> Mob: +256772425150 Email: Kagando_hospital@yahoo.com <br>  Laboratory Report Form <br><br>',
+	'address-info' => 'P.O Box 279, Kalisizo<br> Mob: +256 200 900 384 Email: Email us at: info@rhsp.org <br>  Laboratory Report Form <br><br>',
 
 	/*
 	|--------------------------------------------------------------------------
