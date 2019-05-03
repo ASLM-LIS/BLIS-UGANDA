@@ -91,22 +91,21 @@
 					<td class="text-left">{{ $bbincidence->serial_no }}</td>
 					<td>{{ date('d M Y', strtotime($bbincidence->occurrence_date)) }}<br>{{ $bbincidence->occurrence_time }}
 					</td>
+					<td>'{{ $bbincidence->description }}'</td>
 
 				<!--	<td class="text-left"> {{$bbincidence->personnel_surname}} {{$bbincidence->personnel_othername}}<br>{{$bbincidence->personnel_gender}}</td>-->
-
-					<td>
-						@foreach ($bbincidence->bbnature as $nature)
-							<span title="{{$nature->name}}">{{$nature->priority}}/{{$nature->class}};</span>
-						@endforeach
-					</td>
 
 					<td>
 						@foreach ($bbincidence->bbcause as $cause)
 							{{$cause->causename}};
 						@endforeach
 					</td>
+					<td>
+						@foreach ($bbincidence->bbnature as $nature)
+							<span title="{{$nature->name}}">{{$nature->priority}}/{{$nature->class}};</span>
+						@endforeach
+					</td>
 
-					<td>'{{ $bbincidence->description }}'</td>
 
 					<td>
 					<a class="btn btn-sm btn-success" href="{{ URL::route('bbincidence.show', array($bbincidence->id)) }}" >
@@ -114,23 +113,32 @@
 							<!--{{trans('messages.edit')}}-->
 							View
 						</a>
+						@if(($bbincidence->status_id == 0))
 						<a class="btn btn-sm btn-info" href="{{ URL::route('bbincidence.edit', array($bbincidence->id)) }}" >
 							<span class="glyphicon glyphicon-edit"></span>
 							Edit
 							<!--{{trans('messages.edit')}}-->
 						</a>
+						@endif
+						@if(($bbincidence->status_id == 0) || ($bbincidence->status_id == 1))
 						<a class="btn btn-sm btn-info" href="{{ URL::route('bbincidence.clinicaledit', array($bbincidence->id)) }}" >
 							<span class="glyphicon glyphicon-list-alt"></span>
 							Clinical Intervention
 						</a>
+						@endif
+						@if(($bbincidence->status_id == 0) || ($bbincidence->status_id == 1) || ($bbincidence->status_id == 2))
 						<a class="btn btn-sm btn-info" href="{{ URL::route('bbincidence.analysisedit', array($bbincidence->id)) }}" >
 							<span class="glyphicon glyphicon-th-list"></span>
 							Incident Analysis
 						</a>
+						@endif
+						@if(($bbincidence->referral_status != 'Ressolved and not referred'))
 						<a class="btn btn-sm btn-warning" href="{{ URL::route('bbincidence.responseedit', array($bbincidence->id)) }}" >
 							<span class="glyphicon glyphicon-th"></span>
 							Emergency Incident Response
 						</a>
+						@else Filed
+						@endif
 
 						<!--<div class="dropdown">
 							 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Action

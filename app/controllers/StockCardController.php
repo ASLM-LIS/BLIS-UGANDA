@@ -54,7 +54,7 @@ class StockCardController extends \BaseController {
 		$source_destination_list = UNHLSFacility::orderBy('name', 'ASC')->lists('name', 'id');
 		$source_destination_label = "From";
 
-
+ 
 		$item = Commodity::with('Metric')->Find(Session::get('item'));	
 
 		$card_action = 'losses / adjustments';

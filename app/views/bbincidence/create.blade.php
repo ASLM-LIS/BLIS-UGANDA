@@ -66,7 +66,7 @@
 					{{ Form::text('occurrence_date',Input::old('occurrence_date') ,array('class' => 'form-control standard-datepicker col-sm-4')) }}
 
 					{{ Form::label('occurrence_time', trans('Occurence Time'), array('class' => 'required col-sm-4'))}}
-					{{ Form::text('occurrence_time', Input::old('occurrence_time'), array('class' => 'form-control col-sm-4')) }}
+					{{ Form::text('occurrence_time', Input::old('occurrence_time'), array('class' => 'form-control col-sm-4', 'placeholder' => '00:00:00')) }}
 
 					<div class='input-group date' id='occurrence_time'>
 						<script type="text/javascript">

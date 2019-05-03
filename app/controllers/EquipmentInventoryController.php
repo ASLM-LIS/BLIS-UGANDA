@@ -34,8 +34,9 @@ class EquipmentInventoryController extends \BaseController {
 	{
 		//
 		$procurement_type_list = array('0' => 'Placement', '1' => 'Procured');
-		$location_list = array('0' => 'Chemistry', '1' => 'Microbiology', '2' => 'Mycology','3' => 'Heamatology', '4' => 'Serology', '5' => 'Blood Transfusion', '6' => 'Immunology', '7' => 'Ecology', '8' => 'Parasitology', '9' => 'Pathology', '10' => 'Automated lab', '11' => 'Main Lab', '12' => 'Stores', '13' => 'Katadooba', '14' =>'Obsolete', '15' =>'Store fridge', '16' => 'Phlebotomy');
-		$yes_no_list = array('1' => 'Yes', '0' => 'No');
+		$location_list = array('0' => 'Molecular Bio Pre-Amp 1', '1' => 'Molecular Bio Pre-Amp 2', '2' => 'Molecular Bio Tissue Culture','3' => 'Equipment Room', '4' => 'Serology', '5' => 'Accessioning', '6' => 'Microbiology', '7' => 'Hematology', '8' => 'EIA', '9' => 'CHEM', '10' => ' CD4', '11' => 'Serology', '12' => 'Lab Data', '13' => 'Lab Store', '14' =>'Media Prep room', '15' =>'Quality Control Office','16' =>'Managers Office', '17' => 'Director Lab');
+		$yes_no_list = array('1' => 'Yes', '0' => 'No', '2' => 'Unknown');
+		$service_contract_list = array('1' => 'Yes', '0' => 'No', '2' => 'Inhouse');
 		$service_frequency_list = array('0' => '3 months', '1' => '6 months', '2' => '9 months', '4' => '12 months');
 		$warranty_list = array('0' => '6 months','1' => '1 year', '2' => '2 years', '3' => '3 years', '4' => '4 years', '5' => '5 years');
 
@@ -44,6 +45,7 @@ class EquipmentInventoryController extends \BaseController {
 		return View::make('equipment.inventory.create')
 					->with('service_frequency_list',$service_frequency_list)
 					->with('yes_no_list',$yes_no_list)
+					->with('service_contract_list',$service_contract_list)
 					->with('procurement_type_list',$procurement_type_list)
 					->with('location_list',$location_list)
 					->with('warranty_list',$warranty_list)
@@ -67,7 +69,7 @@ class EquipmentInventoryController extends \BaseController {
 		'serial_number' => 'required',
 		'location' => 'required',
 		'procurement_type' => 'required',
-		'purchase_date' => 'required',
+		
 		'delivery_date' => 'required',
 		'verification_date' => 'required',
 		'installation_date' => 'required',
