@@ -91,7 +91,10 @@
 							<p class="view"><strong>{{trans('messages.test-status')}}</strong>
 								{{trans('messages.'.$test->testStatus->name)}}</p>
 							<p class="view-striped"><strong>{{trans('messages.physician')}}</strong>
-								{{$test->clinician->name}}</p>
+								{{$test->requested_by}}
+								
+								
+							</p>
 							@if($test->testType->name = 'HIV' || $test->testType->name = 'H.I.V' )
 								<p class="view-striped"><strong>{{trans('messages.purpose')}}</strong>
 									{{$test->purpose or trans('messages.unknown') }}</p>
@@ -137,9 +140,9 @@
 							<!-- Clinical notes-->
 							<p class="view-striped"><strong>Clinical notes</strong>
 								
-								@if(!empty($test->therapy->clinical_notes))
+								
 									{{$test->therapy->clinical_notes}}
-								@endif
+								
 
 							</p>
 							<!-- Test Requested by -->
