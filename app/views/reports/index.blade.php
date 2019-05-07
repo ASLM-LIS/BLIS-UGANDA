@@ -101,7 +101,7 @@
 							<h4 class="panel_heading panel_heading_first">Dashboard</h4>
 							<ul>
 								<li>
-									<div><a href="{{ URL::route('user.dashboard')}}">
+									<div><a href="{{ URL::route('dashboard.index')}}">
 										<span class="glyphicon glyphicon-tag"></span>
 										Dashboard</a>
 									</div>
