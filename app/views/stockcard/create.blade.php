@@ -39,7 +39,7 @@
                 <td>{{ \Config::get('constants.FACILITY_NAME') }}</td>
                 <td>{{ \Config::get('constants.FIN_YEAR_NAME') }}</td>
                 <td>{{ $item->name }} ({{ $item->description }})</td>
-                <td>{{ $item->metric->description }}</td>
+                <td>{{ $item->metric->name }}</td>
                 <td>{{ $item->max_level }}</td>
                 <td>{{ $item->min_level }}</td>
             </tr>

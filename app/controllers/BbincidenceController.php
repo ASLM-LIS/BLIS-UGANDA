@@ -159,6 +159,7 @@ class BbincidenceController extends \BaseController {
 			$bbincidence->officer_telephone = Input::get('officer_telephone');
 
 			$bbincidence->status = 'Ongoing';
+			$bbincidence->status_id = 0;
 
 			$bbincidence->createdby = Auth::user()->id;
 
@@ -268,7 +269,8 @@ class BbincidenceController extends \BaseController {
 		$content = View::make('bbincidence.show')->with('bbincidence', $bbincidence)->with('nextbbincidence', $nextbbincidence)
 		->with('previousbbincidence', $previousbbincidence);
 
-		return PDF::loadHTML($content)->stream('bbincidenceReport.pdf');
+		return $content;
+		//return PDF::loadHTML($content)->stream('bbincidenceReport.pdf');
 	}
 
 	/**
@@ -357,7 +359,7 @@ class BbincidenceController extends \BaseController {
 			$bbincidence->officer_lname = Input::get('officer_lname');
 			$bbincidence->officer_cadre = Input::get('officer_cadre');
 			$bbincidence->officer_telephone = Input::get('officer_telephone');
-
+			$bbincidence->status_id = 1;
 			$bbincidence->updatedby = Auth::user()->id;
 			$bbincidence->save();
 
@@ -506,7 +508,7 @@ class BbincidenceController extends \BaseController {
 			$bbincidence->mo_lname = Input::get('mo_lname');
 			$bbincidence->mo_designation = Input::get('mo_designation');
 			$bbincidence->mo_telephone = Input::get('mo_telephone');
-
+			$bbincidence->status_id = 2;
 			$bbincidence->save();
 
 			// redirect
@@ -563,7 +565,7 @@ class BbincidenceController extends \BaseController {
 			$bbincidence->bo_lname = Input::get('bo_lname');
 			$bbincidence->bo_designation = Input::get('bo_designation');
 			$bbincidence->bo_telephone = Input::get('bo_telephone');
-
+			$bbincidence->status_id = 3;
 			$bbincidence->save();
 
 			DB::table('unhls_bbincidences_cause')->where('bbincidence_id', '=', $bbincidence->id)->delete();
@@ -632,7 +634,7 @@ class BbincidenceController extends \BaseController {
 			$bbincidence->brm_lname = Input::get('brm_lname');
 			$bbincidence->brm_designation = Input::get('brm_designation');
 			$bbincidence->brm_telephone = Input::get('brm_telephone');
-
+			$bbincidence->status_id = 4;
 			$bbincidence->save();
 
 			// redirect

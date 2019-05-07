@@ -42,7 +42,9 @@
 				<tr>
                  	<td>{{ $commodity->name}}</td>
                  	<td>{{ $commodity->description}}</td>
-                 	<td>{{'' }}</td>
+                 	<td>@if($commodity->metric_id)
+          				{{ $commodity->metric->name }}
+        					@endif</td>
                  	<td>{{ $commodity->unit_price}}</td>
 					<td>{{ $commodity->item_code }}</td>
 					<td>{{ $commodity->storage_req }}</td>

@@ -104,7 +104,7 @@
                                 <div class="form-group">
                                 {{ Form::label('purchase_date', 'Purchase date', ['class' => 'col-md-2 control-label']) }}
                                   <div class="col-md-4">
-                                        {{ Form::text('purchase_date', Input::old('purchase_date'),array('class' => 'form-control standard-datepicker purchase-date','required'=>'required')) }}
+                                        {{ Form::text('purchase_date', Input::old('purchase_date'),array('class' => 'form-control standard-datepicker purchase-date')) }}
 
                                         @if ($errors->has('purchase_date'))
                                             <span class="text-danger">
@@ -223,7 +223,7 @@
                                 <div class="form-group">
                                 {{  Form::label('service_contract', 'Service Contract', array('class'=>'control-label')) }}
                                   <div class="col-md-4">
-                                        {{ Form::select('service_contract', array(null => 'Select')+ $yes_no_list, Input::old('service_contract'), array('class' => 'form-control', 'id' => 'service_contract_id','required'=>'required')) }}  
+                                        {{ Form::select('service_contract', array(null => 'Select')+ $service_contract_list, Input::old('service_contract'), array('class' => 'form-control', 'id' => 'service_contract_id','required'=>'required')) }}  
                                       
                                         @if ($errors->has('service_contract'))
                                             <span class="text-danger">

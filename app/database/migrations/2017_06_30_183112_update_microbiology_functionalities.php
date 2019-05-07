@@ -409,7 +409,9 @@ class UpdateMicrobiologyFunctionalities extends Migration {
           array("id" => "4","name" => "completed","test_phase_id" => "3"),//Post-Analytical
           array("id" => "5","name" => "verified","test_phase_id" => "3"),//Post-Analytical
           array("id" => "6","name" => "specimen-rejected-at-analysis","test_phase_id" => "3"),//Analytical
-          array("id" =>"7", "name" => "approved", "test_phase_id" => "3")
+          array("id" => "7", "name" => "referred_in", "test_phase_id" => "3"),
+          array("id" => "8", "name" => "referred_out", "test_phase_id" => "3"),
+          array("id" => "9", "name" => "approved", "test_phase_id" => "3")
 
         );
         foreach ($test_statuses as $test_status)
