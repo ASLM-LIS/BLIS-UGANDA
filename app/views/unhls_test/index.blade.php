@@ -135,13 +135,13 @@
                         @if ($test->isNotReceived())
                             @if(Auth::user()->can('accept_test_specimen'))
                             <!-- todo: udate this to operate as that on the queue, if possible -->
-                                <!--
+                                
                                 <a class="btn btn-sm btn-default receive-test" href="javascript:void(0)"
                                     data-test-id="{{$test->id}}"
                                     title="{{trans('messages.receive-test-title')}}">
                                     <span class="glyphicon glyphicon-thumbs-up"></span>
                                     {{trans('messages.receive-test')}}
-                                </a> -->
+                                </a> 
                             @endif
                         @elseif ($test->specimen->isNotCollected())
                             @if(Auth::user()->can('accept_test_specimen'))
@@ -353,6 +353,54 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal /#accept-specimen-modal-->
+
+   <!--  ACCEPT SPECIMEN MODAL -->
+    <div class="modal fade" id="collect-specimen">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {{Form::open(array('route'=>'unhls_test.collectSpecimen'))}}
+                    <!-- move to dcocumentation and bring back -->
+                        <div class="display-details">
+                        {{ Form::hidden('specimen_id', 'Blood') }}
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <strong>{{ Lang::choice('messages.specimen-type',2) }}</strong>
+                                </div>
+<!--                                 <div class="col-md-8">
+                                    {{ Form::select('specimen_type_id', $specimenTypes->lists('name','id'),
+                                        array($specimen->specimen_type_id), array('class' => 'form-control')) }}</p>
+                                </div> -->
+<!--                             </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <strong>{{trans('messages.specimen-number')}}</strong>
+                                </div>
+                                <div class="col-md-8">
+                                    {{$specimen->id}}
+                                </div>
+                            </div><br />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <strong>{{trans('messages.time-collected')}}</strong>
+                                </div>
+                                <div class="col-md-8">
+                                    {{$specimen->time_accepted}}
+                                </div>
+                            </div><br />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <strong>{{trans('messages.specimen-status')}}</strong>
+                                </div>
+                                <div class="col-md-8">
+                                    {{trans('messages.'.$specimen->specimenStatus->name)}}
+                                </div>
+                            </div><br /> -->
+                        </div>
+                      </div>
+                {{Form::close()}}
+        </div>
+    </div>
 
     <!-- OTHER UI COMPONENTS -->
     <div class="hidden pending-test-not-collected-specimen">

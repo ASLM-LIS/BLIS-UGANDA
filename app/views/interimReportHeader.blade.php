@@ -78,25 +78,25 @@
     <tr>
         <td width="20%"><strong>Requesting Officer</strong>:</td>
         <td width="30%">
-            @if($tests->first())
+<!--             @if($tests->first())
                 @if($tests->first()->requested_by)
                     {{$tests->first()->requested_by}}
                 @elseif($tests->first()->clinician->name)
                     {{$tests->first()->clinician->name}}
                 @endif
 
-            @endif
+            @endif -->
         </td>
         <td width="20%"><strong>Officer's Contact</strong>:</td>
         <td width="30%">
-                @if($tests->first())
+<!--                 @if($tests->first())
                     @if($tests->first()->therapy->contact)
                         {{$tests->first()->therapy->contact}}
                     @elseif($tests->first()->clinician->phone)
                         {{$tests->first()->clinician->phone}}
                     @endif
 
-                @endif
+                @endif -->
 
         </td>
         
@@ -107,15 +107,15 @@
     <tr>
         <td width="20%"><strong>Facility/Dept</strong>:</td>
         <td width="30%">
-            @if($tests->first())
+<!--             @if($tests->first())
             {{ is_null($tests->first()->visit->ward) ? '':$tests->first()->visit->ward->name }}
-            @endif
+            @endif -->
         </td>
 
         <td width="25%"><strong>Patient Facility/Dept ID</strong>:</td>
         <td width="25%">
         
-            {{is_null( $patient->patient_number)?'': $patient->patient_number}}
+          <!--   {{is_null( $patient->patient_number)?'': $patient->patient_number}} -->
             
     
         </td>
