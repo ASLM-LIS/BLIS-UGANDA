@@ -522,6 +522,7 @@ return array(
     'user-statistics-tests-performed-report-title' => 'Tests Performed (Period: [FROM] - [TO] [USER])',
     'user-statistics-tests-register-report-title' => 'Tests Registered (Period: [FROM] - [TO] [USER])',
     'verified-tests' => 'Tests Verified',
+    'approved-tests' => 'Tests Approved',
 
      /* Inventory Reports*/ 
     'inventory-reports' => 'Inventory Reports',

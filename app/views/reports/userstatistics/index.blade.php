@@ -97,6 +97,7 @@
 							<th>{{Lang::choice('messages.rejected-specimen',1)}}</th>
 							<th>{{Lang::choice('messages.performed-tests',1)}}</th>
 							<th>{{Lang::choice('messages.verified-tests',1)}}</th>
+							<th>{{Lang::choice('messages.approved-tests',1)}}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -110,6 +111,7 @@
 								<td>{{$row->specimen_rejected}}</td>
 								<td>{{$row->tested}}</td>
 								<td>{{$row->verified}}</td>
+								<td></td>
 							</tr>
 						@empty
 							<tr>

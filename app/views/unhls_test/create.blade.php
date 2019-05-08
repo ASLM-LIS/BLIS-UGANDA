@@ -57,10 +57,7 @@
 								</div>
 									<div class="panel-body inline-display-details">
 									<div class="col-md-12">
-										<div class="form-group">
-												{{ Form::label('visit_lab_number','Visit Lab No:', array('text-align' => 'right')) }}
-												{{ Form::text('visit_lab_number', Input::old('visit_lab_number'), array('class' => 'form-control')) }}
-										</div>
+										
 										<div class="form-group">
 											{{ Form::hidden('patient_id', $patient->id) }}
 											{{ Form::label('visit_type', trans("messages.visit-type")) }}
@@ -72,10 +69,7 @@
 											{{ Form::select('ward_id', $ward, Input::get('ward_id'),
 											array('class' => 'form-control')) }}
 										</div>
-										<div class="form-group">
-												{{ Form::label('bed_no','Bed No:', array('text-align' => 'right')) }}
-												{{ Form::text('bed_no', Input::old('bed_no'), array('class' => 'form-control')) }}
-										</div>
+										
 										<div class="form-group">
 											{{ Form::label('clinical_notes','Clinical Notes',array('class' => 'required')) }}
 											{{ Form::textarea('clinical_notes', Input::old('clinical_notes'), array('class' => 'form-control')) }}
