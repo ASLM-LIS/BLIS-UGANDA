@@ -74,8 +74,7 @@
     <tr>
         <td width="20%"><strong>Requesting Officer</strong>:</td>
         <td width="30%">
-        @if(isset($tests))
-            @if(!empty($tests->first()))
+            @if($tests->first())
                 @if(!empty($tests->first()->requested_by))
                     {{$tests->first()->requested_by}}
                 @elseif(!empty($tests->first()->clinician->name))
@@ -83,12 +82,10 @@
                 @endif
 
             @endif
-        @endif
         </td>
         <td width="20%"><strong>Officer's Contact</strong>:</td>
         <td width="30%">
-            @if(isset($tests))
-                @if(!empty($tests->first()))
+                @if($tests->first())
                     @if(!empty($tests->first()->therapy->contact))
                         {{$tests->first()->therapy->contact}}
                     @elseif(!empty($tests->first()->clinician->phone))
@@ -96,7 +93,7 @@
                     @endif
 
                 @endif
-            @endif
+
         </td>
         
 
@@ -106,13 +103,9 @@
     <tr>
         <td width="20%"><strong>Facility/Dept</strong>:</td>
         <td width="30%">
-        @if(isset($tests))
             @if(!is_null($tests->first()))
             {{ is_null($tests->first()->visit->ward) ? '':$tests->first()->visit->ward->name }}
             @endif
-        @endif
-
-
         </td>
 
         <td width="25%"><strong>Patient Facility/Dept ID</strong>:</td>

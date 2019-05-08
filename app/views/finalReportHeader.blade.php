@@ -15,13 +15,6 @@
     </table>
     <table style="text-align:center;" >
             <tr>
-                <td colspan="12" style="text-align:center;">
-
-                   {{ @HTML::image(Config::get('kblis.rhsp-logo'),  Config::get('kblis.country') . trans('messages.court-of-arms'), array('width' => '40px')) }}
-                   </td>
-            </tr>
-            <tr>
-               
                 <td colspan="12" style="text-align:center;"><b>
                     {{ strtoupper(Config::get('constants.MINISTRY')) }}<br>
                     <span style="font-size:14px">
@@ -29,9 +22,25 @@
                     </span>
                     
                     {{Config::get('kblis.address-info')}}</b>
-                     {{Config::get('kblis.final-report-name')}}
                 </td>
             </tr>
+            <tr>
+                <td colspan="5" style="text-align:left;">
+
+                   {{'Laboratory Department'}}<br><font size="8">{{'Kalisizo Town – Old Bukoba Rd, P.O. Box 279 Kalisizo'}}<br>{{'Kyotera District – Uganda'}}<br>
+                   {{'Phone: +256-200900383/+256-701333233'}}<br>{{'Email: lab-info@rhsp.or.ug'}}</font>
+                </td>
+                <td colspan="2" style="text-align:center;">
+
+                   {{ @HTML::image(Config::get('kblis.rhsp-logo'),  Config::get('kblis.country') . trans('messages.court-of-arms'), array('width' => '40px')) }}
+                </td>
+                 <td colspan="4" style="text-align:left;">
+                    {{'Program Information'}}<br><font size="8">{{'Kalisizo Town – Old Bukoba Rd, P.O. Box 279 Kalisizo'}}<br>{{'Kyotera District – Uganda'}}<br>
+                   {{'Email: lab-info@rhsp.or.ug'}}<br>{{'Website: www.rhsp.org'}}</font>
+                </td>
+            </tr>
+            <tr><td colspan="12" style="text-align:center;">{{Config::get('kblis.final-report-name')}}</td></tr>
+
             
         
     </table>

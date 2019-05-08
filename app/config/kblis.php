@@ -47,7 +47,7 @@ return array(
 	|--------------------------------------------------------------------------
 	|
 	*/
-	'address-info' => 'P.O Box 279, Kalisizo<br> Mob: +256 200 900 384 Email: Email us at: info@rhsp.org <br>  Laboratory Report Form <br><br>',
+	'address-info' => 'Uganda Virus Research Institute<br><br>',
 
 	/*
 	|--------------------------------------------------------------------------
