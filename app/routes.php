@@ -377,6 +377,12 @@ Route::group(array("before" => "auth"), function()
         "as"   => "test.viewDetails",
         "uses" => "TestController@viewDetails"
     ));
+    Route::get("/unhls_test/{test}/collectsample", array( //This is meant to use a normal blade page
+        "as" => "unhls_test.collectSample",
+        "uses" => "UnhlsTestController@collectSpecimen"));
+     Route::post("/unhls_test/collectsamplemodal", array( //This is the route used via ajax call to load data in modal
+        "as" => "unhls_test.collectSampleModal",
+        "uses" => "UnhlsTestController@collectSpecimenModal"));
     Route::post("unhls_test/collectspecimen", array(
         "as" => "unhls_test.collectSpecimen",
         "uses" => "UnhlsTestController@acceptSpecimen"));
