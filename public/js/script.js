@@ -910,6 +910,20 @@ $(function(){
         });
     });
 
+    /** - Get a specimen->id from the button clicked,
+     *  - Fetch corresponding specimen data
+     *  - Display all in the modal.
+     */
+    $('#collect-sample-modal').on('show.bs.modal', function(e) {
+        //get data-id attribute of the clicked element
+        var id = $(e.relatedTarget).data('sample-id');
+        var url = $(e.relatedTarget).data('url');
+        $.post(url, { id: id}).done(function(data){
+            //Show it in the modal
+            $(e.currentTarget).find('.modal-body').html(data);
+        });
+    });
+
 
 	/** Receive Test Request button.
 	 *  - Updates the Test status via an AJAX call
