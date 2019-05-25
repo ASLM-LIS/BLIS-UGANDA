@@ -111,7 +111,7 @@
 								<td>{{$row->specimen_rejected}}</td>
 								<td>{{$row->tested}}</td>
 								<td>{{$row->verified}}</td>
-								<td></td>
+								<td>{{$row->approved}}</td>
 							</tr>
 						@empty
 							<tr>
