@@ -190,7 +190,7 @@
 						</td>
 						<td>{{ $test->interpretation }}</td>
 						<td>{{ $test->time_completed or trans('messages.pending') }}</td>
-						<td>{{ is_null($tests->first()->approvedBy->name)? trans('messages.verification-pending'): $tests->first()->approvedBy->name }}</td>
+						<td>{{ !is_null($tests->first()->approvedBy->name)? trans('messages.verification-pending'): $tests->first()->approvedBy->name }}</td>
 					</tr>
 					@empty
 					<tr><td colspan="12">{{trans('messages.no-records-found')}}</td></tr>
