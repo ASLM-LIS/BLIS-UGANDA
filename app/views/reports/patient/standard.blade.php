@@ -57,8 +57,6 @@
                  @endif
 		</td>
 
-		
-		
 	</tr>
 	<tr>
 		<td width="20%"><strong>Facility/Dept</strong>:</td>
@@ -79,11 +77,10 @@
 		</td>
 	</tr>
 </table>
-<br>
-<br>
 
-<table style="border-bottom: 1px solid #cecfd5; font-size:8px;
- font-family: 'Courier New',Courier;">
+<br>
+<br>
+<table style="border-bottom: 1px solid #cecfd5; font-size:8px; font-family: 'Courier New',Courier;">
 <thead>
  	<tr>
 			<th width="20%"><strong>Sample Type</strong></th>
@@ -174,7 +171,11 @@
 								<td>
 									{{ Measure::find($result->measure_id)->unit }}
 								</td>
-								<td></td><!-- Diagnostic Flag column for results-->
+								<td>
+									@if($test->testType->name == 'CBC')
+										{{Measure::measureFlag($test->visit->patient, $result->measure_id, $result->result) }}
+									@endif
+								</td><!-- Diagnostic Flag column for results-->
 							</tr>
 							@endif
 						@endforeach
