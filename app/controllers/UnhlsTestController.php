@@ -589,9 +589,9 @@ class UnhlsTestController extends \BaseController {
                     // Create Specimen - specimen_type_id, accepted_by, referred_from, referred_to
                     $specimen = new UnhlsSpecimen;
                     $specimen->specimen_type_id = $testList['specimen_type_id'];
-                    $specimen->accepted_by = Auth::user()->id;
-                    $specimen->time_collected = Input::get('collection_date');
-                    $specimen->time_accepted = Input::get('reception_date');
+                    //$specimen->accepted_by = Auth::user()->id;
+                    // $specimen->time_collected = Input::get('collection_date');
+                    // $specimen->time_accepted = Input::get('reception_date');
                     $specimen->save();
                     foreach ($testList['test_type_id'] as $id) {
                         $testTypeID = (int)$id;
@@ -622,15 +622,65 @@ class UnhlsTestController extends \BaseController {
 
 
 	/**
-	 * Display Collect page 
+	 * Display blade page  for collecting sample
 	 *
 	 * @param
 	 * @return
 	 */
-	public function collectSpecimen($specimenID)
+	public function collectSpecimen($testId)
 	{
-		$specimen = UnhlsSpecimen::find($specimenID);
-		return View::make('unhls_test.collect')->with('specimen', $specimen);
+		$test= UnhlsTest::find($testId);
+
+		// sample collection default details
+		$now = new DateTime();
+		$collectionDate = $now->format('Y-m-d H:i');
+		$receptionDate = $now->format('Y-m-d H:i');
+		$specimenTypes = ['select Specimen Type']+SpecimenType::lists('name', 'id');
+
+		return View::make('unhls_test.collect')
+				->with('test', $test)
+				->with('collectionDate', $collectionDate)
+				->with('receptionDate', $receptionDate);
+	}
+
+	/**
+	 * Display modal page for collecting specimen
+	 *
+	 * @param
+	 * @return
+	 */
+	public function collectSpecimenModal()
+	{
+		$now = new DateTime();
+		$collectionDate = $now->format('Y-m-d H:i');
+		$receptionDate = $now->format('Y-m-d H:i');
+		$specimen = UnhlsSpecimen::find(Input::get('id'));
+		$specimenTypes = SpecimenType::all();
+		return View::make('unhls_test.collectSpecimen')
+			->with('collectionDate', $collectionDate)
+			->with('specimen', $specimen)
+			->with('specimenTypes', $specimenTypes);
+	}
+
+	/**
+	 * Collect specimen action
+	 *
+	 * @param
+	 * @return
+	 */
+	public function collectSpecimenAction()
+	{
+		$specimen = UnhlsSpecimen::find(Input::get('specimen_id'));
+	
+		//$specimen = UnhlsSpecimen::find($specimen_id);
+		$specimen->specimen_status_id = UnhlsSpecimen::ACCEPTED;
+		$specimen->accepted_by = Auth::user()->id;
+        $specimen->time_collected = Input::get('collection_date');
+        $specimen->time_accepted = Input::get('reception_date');
+        $specimen->save();
+
+		return Redirect::route('unhls_test.index')
+			->with('message', 'You have successfully saved specimen collection details');
 	}
 
     /**
