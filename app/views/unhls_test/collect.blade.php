@@ -30,35 +30,83 @@
 			</div>
 		@endif
 		{{ Form::open(array('route' => 'unhls_test.collectSpecimenAction')) }}
+		{{Form::hidden('specimen_id', $test->specimen->id)}}
+		<div class="container-fluid">
+		<div class="panel-body">
+				<div class="panel display-details row">
+					<div class="col-md-3"><p><strong>Patient Name</strong>{{$test->visit->patient->name}}</p>
+					</div>
+					<div class="col-md-3">
+					    <p><strong>{{ Lang::choice('messages.test-type',1) }}</strong>
+					        {{$test->testType->name}}</p>
+				    </div>
+				    <div class="col-md-3">
+					    <p><strong>{{trans('messages.specimen-type-title')}}</strong>
+					        {{$test->specimen->specimenType->name}}</p>
+					    </div>
+				    <div class="col-md-3">
+				    	<p><strong>{{trans('messages.specimen-number-title')}}</strong>
+				        	{{$test->specimen->id}}
+				    	</p>
+					</div>
+				</div>
+			</div>
 			
 			<div class="panel-body">
+
 				<div class="form-group">
-					{{ Form::label('collection_date', 'Date of Sample Collection') }}
-					{{Form::text('collection_date', Input::old('collection_date'), array('class' => 'form-control standard-datepicker'))}}
-					{{ Form::label('sample_time', 'Time of Sample Collection') }}
-					{{Form::text('sample_time', Input::old('sample_time'), array('class' => 'form-control', 'placeholder' => 'HH:MM'))}}
+					<div class="col-sm-2">
+						{{ Form::label('sample_time', 'Date/ Time of Sample Collection') }}
+					</div>
+					<div class="col-sm-3">
+						<input class="form-control"
+							data-format="YYYY-MM-DD HH:mm"
+							data-template="DD / MM / YYYY HH : mm"
+							name="collection_date"
+							type="text"
+							id="collection-date"
+							value="{{$collectionDate}}">
+					</div>
+					
 				</div>
 				<div class="form-group">
-					{{ Form::label('sample_obtainer', 'Sample Collected by') }}
-					{{Form::text('sample_obtainer', Input::old('sample_obtainer'), array('class' => 'form-control'))}}
+					<div class="col-sm-2">
+						{{ Form::label('sample_obtainer', 'Sample Collected by') }}
+					</div>
+					<div class="col-sm-2">
+						{{Form::text('sample_obtainer', Auth::user()->name, array('class' => 'form-control'))}}
+					</div>
+				<div class="col-sm-4">
 					{{ Form::label('cadre_obtainer', 'Cadre') }}
-					{{Form::text('cadre_obtainer', Input::old('cadre_obtainer'), array('class' => 'form-control'))}}
+					{{Form::text('cadre_obtainer', Auth::user()->designation, array('class' => 'form-control'))}}
 				</div>
-				<div class="form-group">
-					{{ Form::label('recieved_date', 'Date sample recieved in Lab') }}
-					{{Form::text('recieved_date', Input::old('recieved_date'), array('class' => 'form-control standard-datepicker'))}}
-					{{ Form::label('sample_time', 'Time Sample Recieved in Lab') }}
-					{{Form::text('sample_time', Input::old('sample_time'), array('class' => 'form-control', 'placeholder' => 'HH:MM'))}}
 				</div>
-				<div class="form-group">
-					{{ Form::label('sample_reciever', 'Sample Recieved by') }}
-					{{Form::text('sample_reciever', Input::old('sample_reciever'), array('class' => 'form-control'))}}
-					{{ Form::label('cadre_reciever', 'Cadre') }}
-					{{Form::text('cadre_reciever', Input::old('cadre_reciever'), array('class' => 'form-control'))}}
-				</div>
-				<div class="form-group actions-row">
-					{{ Form::button("<span class='glyphicon glyphicon-save'></span> ".trans('messages.save'),
-						['class' => 'btn btn-primary', 'onclick' => 'submit()']) }}
+					<div class="col-sm-2">
+						{{Form::label('reception_date', 'Date/Time Sample was Received in Lab')}}
+					</div>
+					<div class="col-sm-3">
+						<input class="form-control"
+							data-format="YYYY-MM-DD HH:mm"
+							data-template="DD / MM / YYYY HH : mm"
+							name="reception_date"
+							type="text"
+							id="reception-date"
+							value="{{$receptionDate}}">
+					</div>
+					<div class="form-group">
+						<div class="col-sm-2">
+							{{ Form::label('sample_reciever', 'Sample Recieved by') }}
+						</div>
+						<div class="col-sm-2">
+						{{Form::text('sample_reciever', Auth::user()->name, array('class' => 'form-control'))}}</div>
+						<div class="col-sm-4">
+							{{ Form::label('cadre_reciever', 'Cadre') }}
+							{{Form::text('cadre_reciever', Auth::user()->designation, array('class' => 'form-control'))}}
+						</div>
+					<div class="form-group actions-row">
+						{{ Form::button("<span class='glyphicon glyphicon-save'></span> ".trans('messages.save'),
+							['class' => 'btn btn-primary', 'onclick' => 'submit()']) }}
+					</div>
 				</div>
 			</div>
 		{{ Form::close() }}
