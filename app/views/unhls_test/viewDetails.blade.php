@@ -63,6 +63,17 @@
 								@endif
 							@endif
 						</div>
+						<div class="panel-btn">
+							@if(Auth::user()->can('accept_test_specimen'))
+								 @if($test->isNotStarted)
+									<a class="btn btn-sm btn-default" href="{{ URL::to('unhls_test/'.$test->id.'/collectsample') }}">
+										<span class="glyphicon glyphicon-eye-open"></span>
+										{{trans('Collect Sample')}}
+									</a>
+								@endif
+							@endif
+								
+						</div>
 						
                     </div>
                     <div class="col-md-1">

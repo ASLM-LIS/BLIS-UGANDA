@@ -132,21 +132,45 @@
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 {{trans('messages.view-details')}}
                             </a>
+                       <!--  Button uses blade page to display page for sample collection -->
+<!--                         @if ($test->specimen->isNotCollected())
+                            <a class="btn btn-sm btn-success" 
+                                href="{{ URL::to('unhls_test/'.$test->id.'/collectsample') }}"
+                                title="Collect Sample">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                {{trans('Collect Sample')}}
+                            </a>
+                        @endif  -->  
+                       <!--  Button uses modal and AJAX call to display page for sample collection -->
+                        @if ($test->specimen->isNotCollected())
+                            @if(Auth::user()->can('accept_test_specimen'))
+                                <a class="btn btn-sm btn-success" 
+                                    href="#collect-sample-modal"
+                                    data-toggle="modal" data-url="{{ URL::route('unhls_test.collectSampleModal') }}" data-sample-id="{{$test->specimen->id}}" 
+                                    data-target="#collect-sample-modal"
+                                    title="Collect Sample">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                    {{trans('Collect Sample')}}
+                                </a>
+                            @endif
+                        @endif    
+                        
                         @if ($test->isNotReceived())
                             @if(Auth::user()->can('accept_test_specimen'))
                             <!-- todo: udate this to operate as that on the queue, if possible -->
-                                
+                                <!--
                                 <a class="btn btn-sm btn-default receive-test" href="javascript:void(0)"
                                     data-test-id="{{$test->id}}"
                                     title="{{trans('messages.receive-test-title')}}">
                                     <span class="glyphicon glyphicon-thumbs-up"></span>
                                     {{trans('messages.receive-test')}}
-                                </a> 
+                                </a> -->
                             @endif
                         @elseif ($test->specimen->isNotCollected())
                             @if(Auth::user()->can('accept_test_specimen'))
                                 <a class="btn btn-sm btn-info" href="#accept-specimen-modal"
-                                    data-toggle="modal" data-url="{{ URL::route('unhls_test.collectSpecimen') }}" data-specimen-id="{{$test->specimen->id}}" data-target="#accept-specimen-modal"
+                                    data-toggle="modal" data-url="{{ URL::route('unhls_test.collectSpecimen') }}" data-specimen-id="{{$test->specimen->id}}" 
+                                    data-target="#accept-specimen-modal"
                                     title="{{trans('messages.accept-specimen-title')}}">
                                     <span class="glyphicon glyphicon-thumbs-up"></span>
                                     {{trans('messages.accept-specimen')}}
@@ -354,53 +378,31 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal /#accept-specimen-modal-->
 
-   <!--  ACCEPT SPECIMEN MODAL -->
-    <div class="modal fade" id="collect-specimen">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {{Form::open(array('route'=>'unhls_test.collectSpecimen'))}}
-                    <!-- move to dcocumentation and bring back -->
-                        <div class="display-details">
-                        {{ Form::hidden('specimen_id', 'Blood') }}
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <strong>{{ Lang::choice('messages.specimen-type',2) }}</strong>
-                                </div>
-<!--                                 <div class="col-md-8">
-                                    {{ Form::select('specimen_type_id', $specimenTypes->lists('name','id'),
-                                        array($specimen->specimen_type_id), array('class' => 'form-control')) }}</p>
-                                </div> -->
-<!--                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <strong>{{trans('messages.specimen-number')}}</strong>
-                                </div>
-                                <div class="col-md-8">
-                                    {{$specimen->id}}
-                                </div>
-                            </div><br />
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <strong>{{trans('messages.time-collected')}}</strong>
-                                </div>
-                                <div class="col-md-8">
-                                    {{$specimen->time_accepted}}
-                                </div>
-                            </div><br />
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <strong>{{trans('messages.specimen-status')}}</strong>
-                                </div>
-                                <div class="col-md-8">
-                                    {{trans('messages.'.$specimen->specimenStatus->name)}}
-                                </div>
-                            </div><br /> -->
-                        </div>
-                      </div>
-                {{Form::close()}}
-        </div>
-    </div>
+    <div class="modal fade" id="collect-sample-modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        {{ Form::open(array('route' => 'unhls_test.collectSpecimenAction')) }}
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">{{trans('messages.close')}}</span>
+            </button>
+            <h4 class="modal-title">
+                <span class="glyphicon glyphicon-ok-circle"></span>
+                {{'Collect Sample'}}</h4>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+            {{ Form::button("<span class='glyphicon glyphicon-save'></span> ".trans('messages.submit'),
+                array('class' => 'btn btn-primary', 'data-dismiss' => 'modal', 'onclick' => 'submit()')) }}
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+                {{trans('messages.cancel')}}</button>
+          </div>
+        {{ Form::close() }}
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal /#collect-specimen-modal-->
 
     <!-- OTHER UI COMPONENTS -->
     <div class="hidden pending-test-not-collected-specimen">
