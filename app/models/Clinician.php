@@ -11,7 +11,7 @@ class Clinician extends \Eloquent {
 	
 	//Test Relationship
 	public function tests(){
-		return $this->hasMany('UnhlsTest', 'requested_by');
+		return $this->hasMany('UnhlsTest');
 	}
 	
 	public function getClinician()
