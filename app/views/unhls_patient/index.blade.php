@@ -89,6 +89,12 @@
 								<span class="glyphicon glyphicon-edit"></span>
 								{{trans('messages.edit')}}
 							</a>
+							 <!-- delete patient - only if no test has been requested. -->
+							 @if(Auth::user()->can('make_labrequests'))
+							 <a class="btn btn-sm btn-danger" href="{{ URL::route('unhls_patient.delete', array($patient->id)) }}">
+							 	<span class="glyphicon glyphicon-trash"></span>
+							 	{{trans('messages.delete')}}
+							 @endif
 							
 						</td> 
 					</tr>
