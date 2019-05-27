@@ -83,7 +83,7 @@
                 <thead>
                     <tr>
                         <th>{{trans('messages.date-ordered')}}</th>
-                        <th>{{trans('messages.patient-number')}}</th>
+                        <th class="col-md-1">{{trans('messages.patient-number')}}</th>
                         <th>Lab Number</th>
                         <!-- <th>{{trans('messages.visit-number')}}</th> -->
                         <th class="col-md-2">{{trans('messages.patient-name')}}</th>
@@ -92,7 +92,7 @@
                         <th class="col-md-1">{{trans('messages.visit-type')}}</th>
                         <th class="col-md-1">Unit</th>
                         <th>{{trans('messages.test-request-status')}}</th>
-                        <th class="col-md-3">{{trans('messages.test-status')}}</th>
+                        <th class="col-md-1">{{trans('messages.test-status')}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -250,6 +250,7 @@
                                         <span class='label label-default'>
                                             {{trans('messages.not-received')}}</span> -->
                                         @elseif($test->isPending())
+                                            {{@HTML::image(Config::get('kblis.new')) }}
                                             <span class='label label-info'>
                                                 {{trans('messages.pending')}}</span>
                                         @elseif($test->isStarted())

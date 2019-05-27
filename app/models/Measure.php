@@ -287,10 +287,10 @@ class Measure extends Eloquent
 		$rangeUp = $measureRange->range_upper;
 		$rangeLow = $measureRange->range_lower;
 
-		if( $result <= $rangeLow){
+		if( $result < $rangeLow){
 			$flag = 'Low';
 		}
-		elseif ($result >= $rangeUp ) {
+		elseif ($result > $rangeUp ) {
 			$flag = 'High';
 		}
 		else{

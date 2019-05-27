@@ -63,6 +63,7 @@ return array(
 	'cdc-logo' => '/i/cdc.png',
 	'aslm-logo' => '/i/aslm.png',
 	'aslmlogo'	=> '/i/aslmlogo.png',
+	'new' => '/i/new24.png',
 
 	/*
 	|--------------------------------------------------------------------------
