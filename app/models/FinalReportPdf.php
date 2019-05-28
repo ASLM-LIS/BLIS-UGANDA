@@ -13,14 +13,14 @@ class FinalReportPdf extends TCPDF {
 		}*/
 
 		$this->writeHTML(View::make('finalReportHeader',$this->getTestRequestInformation()), true, false, true, false, '');
-		$this->SetMargins(PDF_MARGIN_LEFT, 80, PDF_MARGIN_RIGHT);
+		$this->SetMargins(PDF_MARGIN_LEFT, 90, PDF_MARGIN_RIGHT);
 
 		
 	}
 
 	Public function Footer(){
 		$now = new DateTime();
-		$printTime = $now->format('Y-m-d H:i');
+		$printTime = $now->format('d-M-Y H:i');
 
 		//Position at 15mm at the bottom
 		$this->SetY(-15);
