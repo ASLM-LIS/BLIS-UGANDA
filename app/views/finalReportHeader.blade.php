@@ -110,4 +110,20 @@
     </tr>
 </table>
 
+<table style="border-bottom: 1px solid #cecfd5; font-size:8px;
+ font-family: 'Courier New',Courier;">
+    <tr style ="border-bottom: 1px solid #cecfd5;">
+        <td colspan="3"><strong>Residential details</strong>:</td>
+    </tr>
+    <tr>
+        <td width="15%"><strong>District</strong>:</td>
+        <td width="20%">{{is_null($patient->district)?'': $patient->district}}</td>
+
+        <td width="15%"><strong>Sub county</strong>:</td>
+        <td width="20%">{{is_null($patient->subcounty)? '': $patient->subcounty}}</td>
+         <td width="15%"><strong>Village</strong>:</td>
+        <td width="25%">{{is_null($patient->village_residence? '': $patient->village_residence)}}</td>
+    </tr>
+</table>
+
 @show
