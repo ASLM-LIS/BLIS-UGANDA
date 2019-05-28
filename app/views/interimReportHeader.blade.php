@@ -30,11 +30,11 @@
     <br>
     <table style="border-bottom: 1px solid #cecfd5; font-size:8px;font-family: 'Courier New',Courier;">
     <tr>
-        <td width="15%"><strong>Patient ID</strong>:</td>
+        <td width="15%"><strong>ULIN</strong>:</td>
         <td width="55%" style="text-align:left; ">{{ $patient->ulin}}</td>
 
         <td width="15%"><strong>{{ trans('messages.report-date')}}</strong>:</td>
-        <td width="15%" style="text-align:left;">{{ date('d-m-Y') }}</td>
+        <td width="15%" style="text-align:left;">{{ date('d-M-Y') }}</td>
 
     </tr>
 </table>
