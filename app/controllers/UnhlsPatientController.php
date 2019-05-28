@@ -76,6 +76,8 @@ class UnhlsPatientController extends \BaseController {
 			'name'       => 'required',
 			'gender' => 'required',
 			'dob' => 'required' ,
+			'district' => 'required'
+			'subcounty' => 'required'
 			'village_residence' => 'required',
 			'phone_number' => 'required'
 		);
