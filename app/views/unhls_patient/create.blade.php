@@ -65,6 +65,16 @@
 					<span class="input-tag">{{trans('messages.female')}}</span></div>
 				</div>
 				<div class="form-group">
+					{{ Form::label('district', 'District', array('class' => 'required')) }}
+					{{ Form::text('district', Input::old('district'), array('class' => 'form-control',
+					'required' => 'required')) }}
+				</div>
+				<div class="form-group">
+					{{ Form::label('subcounty', 'Sub County', array('class' => 'required')) }}
+					{{ Form::text('subcounty', Input::old('subcounty'), array('class' => 'form-control',
+					'required' => 'required')) }}
+				</div>
+				<div class="form-group">
 					{{ Form::label('village_residence', trans('messages.residence-village'), array('class' => 'required')) }}
 					{{ Form::text('village_residence', Input::old('village_residence'), array('class' => 'form-control',
 					'required' => 'required')) }}

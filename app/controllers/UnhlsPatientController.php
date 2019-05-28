@@ -92,6 +92,8 @@ class UnhlsPatientController extends \BaseController {
 			$patient->name = Input::get('name');
 			$patient->gender = Input::get('gender');
 			$patient->dob = Input::get('dob');
+			$patient->district =Input::get('district');
+			$patient->subcounty = Input::get('subcounty');
 			$patient->village_residence = Input::get('village_residence');
 			$patient->village_workplace = Input::get('village_workplace');
 			$patient->occupation = Input::get('occupation');
