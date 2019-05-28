@@ -42,6 +42,10 @@
                     {{ ($patient->gender==0?trans('messages.male'):trans('messages.female')) }}</p>
                 <p class="view-striped"><strong>{{ trans('messages.physical-address') }}</strong>
                     {{ $patient->address }}</p>
+                 <p class="view-striped"><strong>{{'District'}}</strong>
+                    {{ $patient->district }}</p>
+                <p class="view-striped"><strong>{{'Sub county' }}</strong>
+                    {{ $patient->subcounty }}</p>
                 <p class="view-striped"><strong>{{ trans('messages.residence-village') }}</strong>
                     {{ $patient->village_residence }}</p>
                 <p class="view-striped"><strong>{{ trans('messages.workplace-village') }}</strong>

@@ -76,8 +76,8 @@ class UnhlsPatientController extends \BaseController {
 			'name'       => 'required',
 			'gender' => 'required',
 			'dob' => 'required' ,
-			'district' => 'required'
-			'subcounty' => 'required'
+			'district' => 'required',
+			'subcounty' => 'required',
 			'village_residence' => 'required',
 			'phone_number' => 'required'
 		);
@@ -197,6 +197,8 @@ class UnhlsPatientController extends \BaseController {
 			$patient->occupation = Input::get('occupation');
 			$patient->email = Input::get('email');
 			$patient->address = Input::get('address');
+			$patient->district =Input::get('district');
+			$patient->subcounty = Input::get('subcounty');
 			$patient->phone_number = Input::get('phone_number');
 			$patient->created_by = Auth::user()->id;
 			$patient->save();
