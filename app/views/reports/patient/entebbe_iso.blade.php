@@ -35,12 +35,12 @@
 	                        <td>{{trans('messages.specimen-not-collected')}}</td>
 	                        <td>not received</td>
 	                    @elseif($test->specimen->specimen_status_id == UnhlsSpecimen::ACCEPTED)
-	                        <td >{{ ($test->specimen->time_collected)?$test->specimen->time_collected:'' }}</td>
+	                        <td >{{ ($test->specimen->time_collected)?date_format(date_create($test->specimen->time_collected), 'd-M-Y H:i:s'):'' }}</td>
 	                        <td >{{isset($test->specimen->time_accepted)?$test->specimen->time_accepted : ''}}</td>
 	                        
 	                    @elseif($test->test_status_id == UnhlsTest::REJECTED)
 	                        <td >{{trans('messages.specimen-not-collected')}}</td>
-	                        <td >{{isset($test->specimen->time_rejected)?$test->specimen->time_rejected:''}}</td>
+	                        <td >{{isset($test->specimen->time_rejected)?date_format(date_create($test->specimen->time_rejected), 'd-M-Y H:i:s'):''}}</td>
 	                        
 	                    @endif
 
@@ -129,7 +129,7 @@
 							</tr-->
 							<tr>
 								<td width="50%" style="font-size:8px">
-									<b>Results Entry Date</b>:{{ $test->time_completed }}</td>
+									<b>Results Entry Date</b>:{{ date_format(date_create($test->time_completed), 'd-M-Y H:i:s') }}</td>
 								<td width="50%">
 									<b>{{trans('messages.tested-by')}}</b>:
 									{{ $test->testedBy->name}}
@@ -139,7 +139,7 @@
 							
 							<tr>
 								<td width="50%"><b>Reviewed by</b>:{{$test->verifiedBy->name}}</td>
-								<td width="50%"><b>Date Reviewed</b>:{{$test->time_verified}}</td>
+								<td width="50%"><b>Date Reviewed</b>:{{date_format(date_create($test->time_verified), 'd-M-Y H:i:s')}}</td>
 								
 							</tr>
 							
@@ -238,7 +238,7 @@
 <table>
 	<tr><td></td></tr>
 	<tr>
-		<td>
+		<td style="font-size:10px">
 			<strong>Approved By :
 				
 			  @if(isset($tests))
