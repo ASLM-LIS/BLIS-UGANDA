@@ -5,16 +5,12 @@ class FinalReportPdf extends TCPDF {
 
 	//Pdf Header
 	Public function Header(){
-		/**if($this->page == 1){
-			$this->writeHTML(View::make('finalReportHeader'), true, false, true, false, '');
-			$this->SetMargins(PDF_MARGIN_LEFT, 50, PDF_MARGIN_RIGHT);
-		}else {
-			$this->SetMargins(PDF_MARGIN_LEFT, 15, PDF_MARGIN_RIGHT);
-		}*/
-
+		if($this->page == 1){
 		$this->writeHTML(View::make('finalReportHeader',$this->getTestRequestInformation()), true, false, true, false, '');
 		$this->SetMargins(PDF_MARGIN_LEFT, 90, PDF_MARGIN_RIGHT);
-
+		}else {
+			$this->SetMargins(PDF_MARGIN_LEFT, 90, PDF_MARGIN_RIGHT);
+		}
 		
 	}
 
