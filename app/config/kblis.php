@@ -59,7 +59,7 @@ return array(
 	'organization-logo' => '/i/coat_of_arms_of_uganda.png',
 	'organization-logo' => '/i/coat_of_arms.png',
 	'uganda-logo' => '/i/uganda.png',
-	'rhsp-logo' => '/i/rhsp.png',
+	'logo' => '/i/logo.png',
 	'cdc-logo' => '/i/cdc.png',
 	'aslm-logo' => '/i/aslm.png',
 	'aslmlogo'	=> '/i/aslmlogo.png',
