@@ -17,7 +17,7 @@
             <tr>
                  <td colspan="12" style="text-align:center;">
 
-                   {{ @HTML::image(Config::get('kblis.rhsp-logo'),  Config::get('kblis.country') . trans('messages.court-of-arms'), array('width' => '650px')) }}
+                   {{ @HTML::image(Config::get('kblis.logo'),  Config::get('kblis.country') . trans('messages.court-of-arms'), array('width' => '650px')) }}
                 </td>
             </tr>
             <tr><td colspan="12" style="text-align:center;">{{Config::get('kblis.final-report-name')}}</td></tr>
