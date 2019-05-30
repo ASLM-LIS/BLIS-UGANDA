@@ -52,6 +52,7 @@ class CliniciansController extends \BaseController {
             $clinician->cadre = Input::get('cadre');
             $clinician->phone = Input::get('phone');
             $clinician->email = Input::get('email');
+            $clinician->location = Clinician::FACILITY_CLINICIAN;
             try{
                 $clinician->save();
             
