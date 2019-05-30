@@ -471,7 +471,8 @@ class UnhlsTestController extends \BaseController {
 		//Create a Lab categories Array
 		$categories = ['Select Lab Section']+TestCategory::lists('name', 'id');
 		$wards = ['Select Sample Origin']+Ward::lists('name', 'id');
-		$clinicians = ['Select clinician']+Clinician::lists('name', 'id');
+		$clinicians = 	['0' => 'Other'] +Clinician::where('location', '=', 1)->lists('name', 'id');
+		// $clinicians = ['Other']+Clinician::lists('name', 'id');
 
 		// sample collection default details
 		$now = new DateTime();
@@ -552,6 +553,23 @@ class UnhlsTestController extends \BaseController {
 			$visitType = ['2' => 'Out-patient','1' => 'In-patient'];
 			$activeTest = array();
 
+						/*
+			 *Create new clinician if clinician is from the field.
+			 * Allows for on the fly capture, these never appear on the drop list
+			 */
+			if(!is_null(Input::get('other_clinician'))){
+				 //store
+	            $clinician = new Clinician;
+	            $clinician->name = Input::get('other_clinician');
+	            $clinician->cadre = Input::get('clinician_cadre');
+	            $clinician->phone = Input::get('clinician_phone');
+	            $clinician->email = Input::get('clinician_email');
+	            $clinician->location = CLINICIAN::FIELD_CLINICIAN;
+	               
+	            $clinician->save();
+		    }
+
+
 			/*
 			 * - Create a visit
 			 * - Fields required: visit_type, patient_id
@@ -602,7 +620,12 @@ class UnhlsTestController extends \BaseController {
                         $test->specimen_id = $specimen->id;
                         $test->test_status_id = UnhlsTest::PENDING;
                         $test->created_by = Auth::user()->id;
-                        $test->requested_by = Input::get('clinician');
+                        if(!is_null(Input::get('other_clinician'))){
+                        	$clinician = new Clinician;
+                        	$test->requested_by = $clinician->getLastClinician();
+                        }else{
+                        	$test->requested_by = Input::get('clinician');
+                    	}
                         $therapy->clinician_id = Input::get('clinician');
 
                         $test->purpose = Input::get('hiv_purpose');

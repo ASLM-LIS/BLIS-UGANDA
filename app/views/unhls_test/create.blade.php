@@ -84,11 +84,19 @@
 											{{ Form::label('current_therapy','Current Therapy', array('text-align' => 'right')) }}
 											{{ Form::text('current_therapy', Input::old('current_therapy'), array('class' => 'form-control')) }}
 										</div>
-										<div class="form-group">
+<!-- 										<div class="form-group">
 											{{ Form::label('clinician', 'Test Requested By',array('class' => 'required')) }}
 											{{ Form::select('clinician', $clinicians, null,
 											array('class' => 'form-control','id'=>'clinician_dropdown_id')) }}
-										</div>
+										</div> -->
+										<div class="form-group">
+											{{ Form::label('clinician', 'Test Requested By',array('class' => 'required')) }}
+											{{ Form::select('clinician', ['' => '--Please select--'] + $clinicians , null, array('class' => 'form-control','id'=>'clinician_dropdown_id')) }}
+										</div> 
+										 <div id="other_clinician" class="form-group text-danger " style="display:none">
+										 		{{ Form::label('other_clinician', 'Other Clinician',array('class' => 'required')) }}
+										 		{{Form::text('other_clinician', Input::old('other_clinician'), array('class' => 'form-control', 'placeholder' => 'Please enter Clinician if other' )) }}
+										 </div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
