@@ -46,6 +46,7 @@
 		<table id="patients_table" class="row-border hover table table-bordered table-condensed table-striped">
         <thead>
           <tr>
+          	<th>{{trans('messages.registration-date')}}</th>
             <th>{{trans('messages.patient-number')}}</th>
 			<th>Lab ID</th>
 			<th>{{Lang::choice('messages.name',1)}}</th>
@@ -60,6 +61,7 @@
             <tbody>   
               @forelse($patients as $key => $patient)
 				    <tr>
+				    	<td>{{ $patient->created_at}}</td>
 						<td>{{ $patient->patient_number }}</td>
 						<td>{{ $patient->ulin}}</td>
 						<td>{{ $patient->name }}</td>
