@@ -812,7 +812,53 @@ $(function(){
         });
     });
 
-	/**
+    /**
+     * Display other (specify) text field when other is selected in the clinician list
+     */
+
+    $(function () {
+        $("#clinician").on('change',function () {
+            if ($(this).val() == "0") {
+                $("#other_clinician").show();
+            } else {
+                $("#other_clinician").hide();
+            }
+        });
+    });
+
+    $("#clinician_dropdown_id").change(function(){
+        if($(this).val() == 0){
+            $("#other_clinician").show();
+            $('#clinician_cadre_id').val('');
+            $('#clinician_cadre_id').removeAttr('readonly');
+
+            $('#clinician_phone_id').val('');
+            $('#clinician_phone_id').removeAttr('readonly','false');
+
+            $('#clinician_email_id').val('');
+            $('#clinician_email_id').removeAttr('readonly','true');
+        }
+        else{
+            $("#other_clinician").hide();
+            $.ajax({
+                url: "/unhls_test/clinician/" + $(this).val(),
+                method: 'GET',
+                
+                success: function(data) {
+                    $('#clinician_cadre_id').val(data.cadre);
+                    $('#clinician_cadre_id').attr('readonly','true');
+
+                    $('#clinician_phone_id').val(data.phone);
+                    $('#clinician_phone_id').attr('readonly','true');
+
+                    $('#clinician_email_id').val(data.email);
+                    $('#clinician_email_id').attr('readonly','true');
+                }
+            });
+        }
+    });
+	
+    /**
 	 * Fetch Test results
 	 */
 
