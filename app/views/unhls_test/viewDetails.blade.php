@@ -55,7 +55,7 @@
 									{{trans('messages.view-final-report')}}
 								</a>
 								
-								@elseif( $test->isVerified())
+								@elseif( $test->isVerified() && Auth::user()->can('verify_test_results'))
 								<a class="btn btn-sm btn-default" href="{{ URL::to('patient_interim_report/'.$test->visit->patient->id.'/'.$test->visit->id ) }}">
 									<span class="glyphicon glyphicon-eye-open"></span>
 									{{trans('messages.view-interim-report')}}
@@ -119,6 +119,10 @@
 							@if($test->isCompleted())
 							<p class="view"><strong>{{trans('messages.tested-by')}}</strong>
 								{{$test->testedBy->name}}</p>
+							@endif
+							@if($test->isApproved())
+							<p class="view"><strong>{{'Approved by'}}</strong>
+								{{$test->approvedBy->name}}</p>
 							@endif
 							@if($test->isVerified())
 							<p class="view"><strong>{{trans('messages.verified-by')}}</strong>
