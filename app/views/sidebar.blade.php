@@ -129,12 +129,6 @@
 											<span class="glyphicon glyphicon-tag"></span> {{Lang::choice('messages.register-new-patient', 1)}}</a>
 									</div>
 								</li>
-																<li>
-									<div>
-										<a href="{{ URL::route('poc.create') }}">
-											<span class="glyphicon glyphicon-tag"></span> {{"Register EID patient"}}</a>
-									</div>
-								</li>
 								<li>
 									<div>
 										<a href="{{ URL::route('unhls_patient.index') }}">

@@ -61,7 +61,7 @@
 										<div class="form-group">
 											{{ Form::hidden('patient_id', $patient->id) }}
 											{{ Form::label('visit_type', trans("messages.visit-type")) }}
-											{{ Form::select('visit_type', [' ' => '--- Select visit type ---','2' => trans("messages.out-patient"),'1' => trans("messages.in-patient")], null,
+											{{ Form::select('visit_type', ['2' => trans("messages.out-patient"),'1' => trans("messages.in-patient")], null,
 												 array('class' => 'form-control','id' => 'visit_type_dropdown_id')) }}
 										</div>
 										<div class="form-group">
