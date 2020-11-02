@@ -69,14 +69,9 @@
 										</div>
 										<div class="form-group">
 											{{ Form::label('ward_id','Ward/Clinic/Health Unit') }}
-											{{ Form::select('ward_id', [' ' => '--- ---'], null,
-											array('class' => 'form-control','id'=>'ward_dropdown_id','name'=>'ward_dropdown')) }}
-										</div>
-										<!--div class="form-group">
-											{{ Form::label('ward_id','Ward/Clinic/Health Unit') }}
 											{{ Form::select('ward_id', $ward, Input::get('ward_id'),
 											array('class' => 'form-control')) }}
-										</div-->
+										</div>
 										<div class="form-group">
 												{{ Form::label('bed_no','Bed No:', array('text-align' => 'right')) }}
 												{{ Form::text('bed_no', Input::old('bed_no'), array('class' => 'form-control')) }}

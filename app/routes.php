@@ -32,6 +32,10 @@ Route::group(array("before" => "guest"), function()
     Route::post('/api/saveresults', array(
         "uses" => "InterfacerController@saveTestResults"
     ));
+    //Sysmex xs-1000i uses this
+    Route::get('/api/saveresults/{query?}', array(
+        "uses" => "InterfacerController@saveTestResultsFromInstrument"
+    ));
     Route::any('/', array(
         "as" => "user.login",
         "uses" => "UserController@loginAction"

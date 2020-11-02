@@ -38,7 +38,7 @@ class CliniciansController extends \BaseController {
         //Validation
         $rules = array(
             'name' => 'required|unique:clinicians,name',
-            'phone' => 'required'
+            //'phone' => 'required'
             );
         $validator = Validator::make(Input::all(), $rules);
     

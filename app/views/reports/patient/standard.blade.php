@@ -45,16 +45,16 @@
 	<tr>
 		<td width="20%"><strong>Requesting Officer</strong>:</td>
 		<td width="30%">
-		@if(isset($tests))
-			{{ is_null($tests->first()) ? '':$tests->first()->requested_by }}
-		@endif
+                @if(!empty($tests->first()->requested_by))
+                    {{$tests->first()->clinician->name}}
+                 @endif
 		</td>
 
 		<td width="20%"><strong>Officer's Contact</strong>:{{ is_null($tests->first()->therapy->contact)? '': $tests->first()->therapy->contact}}</td>
 		<td width="30%">
-		@if(isset($tests))
-			{{ is_null($tests->first()) ? '':'' }}
-		@endif
+                @if(!empty($tests->first()->requested_by))
+                    {{$tests->first()->clinician->phone}}
+                 @endif
 		</td>
 
 		
@@ -65,7 +65,7 @@
 		<td width="30%">
 		@if(isset($tests))
 			@if(!is_null($tests->first()))
-			{{ is_null($tests->first()->visit->ward) ? '':$tests->first()->visit->ward->name }}
+			{{ is_null($tests->first()->visit->ward_id) ? '':$tests->first()->visit->ward->name }}
 			@endif
 		@endif
 		</td>
@@ -99,7 +99,7 @@
 	@if(isset($tests))
 		@forelse($tests as $test)
 				<tr>	
-					<td>{{ isset($test->specimen->specimenType->name)? $test->specimen->specimenType->name : ''}}</td>
+					<td>{{ isset($test->specimen->id)? $test->specimen->specimenType->name : ''}}</td>
 
 					@if($test->specimen->specimen_status_id == UnhlsSpecimen::NOT_COLLECTED)
 						
