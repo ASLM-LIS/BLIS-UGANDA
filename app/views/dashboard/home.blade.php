@@ -5,7 +5,7 @@
 	<div class="row"> <!--beggining of upper row -->
 		<div class="container-fluid">
 			<div class="row">
-				{{Form::open(array('route' =>array('dashboard.index')))}}
+				{{Form::open(array('route' =>array('user.dashboard')))}}
 					<div class="col col-md-4">
 						<span style="font-weight: bold; color:blue;">DATA BELOW IS FOR THE CURRENT MONTH - <?php echo date('01-m-Y'); ?> to 
 							<?php echo date('d-m-Y'); ?></span><br> <strong>To view older stats please select a date range</strong>

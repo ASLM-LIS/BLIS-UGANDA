@@ -61,6 +61,7 @@ class UnhlsPatientController extends \BaseController {
 	{
 		//Create Patient
 		$ulinFormat = AdhocConfig::where('name','ULIN')->first()->getULINFormat();
+		
 		return View::make('unhls_patient.create')->with('ulinFormat', $ulinFormat);
 	}
 

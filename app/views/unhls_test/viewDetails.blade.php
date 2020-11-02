@@ -80,18 +80,20 @@
 						<div class="display-details">
 							<h3 class="view"><strong>{{ Lang::choice('messages.test-type',1) }}</strong>
 								{{ $test->testType->name }}</h3>
-							<p class="view"><strong>{{trans('messages.visit-number')}}</strong>
+                               <p class="view"><strong>{{trans('messages.visit-number')}}</strong>
 								{{$test->visit->id }}</p>
-							<p class="view"><strong>{{trans('messages.visit-lab-number')}}</strong>
+                               <p class="view"><strong>{{trans('messages.visit-lab-number')}}</strong>
 								{{$test->visit->visit_lab_number }}</p>
-							<p class="view"><strong>{{trans('messages.date-ordered')}}</strong>
+                                <p class="view"><strong>{{trans('messages.date-ordered')}}</strong>
 								{{ $test->isExternal()?$test->external()->request_date:$test->time_created }}</p>
-							<p class="view"><strong>{{trans('messages.lab-receipt-date')}}</strong>
+                                <p class="view"><strong>{{trans('messages.lab-receipt-date')}}</strong>
 								{{$test->time_created}}</p>
-							<p class="view"><strong>{{trans('messages.test-status')}}</strong>
+                                
+                                <p class="view"><strong>{{trans('messages.test-status')}}</strong>
 								{{trans('messages.'.$test->testStatus->name)}}</p>
-							<p class="view-striped"><strong>{{trans('messages.physician')}}</strong>
-								{{$test->clinician->name or trans('messages.unknown') }}</p>
+                                
+                                <p class="view-striped"><strong>{{trans('messages.physician')}}</strong>
+								{{$test->requested_by or trans('messages.unknown') }}</p>
 							@if($test->testType->name = 'HIV' || $test->testType->name = 'H.I.V' )
 								<p class="view-striped"><strong>{{trans('messages.purpose')}}</strong>
 									{{$test->purpose or trans('messages.unknown') }}</p>
@@ -159,6 +161,7 @@
 								@elseif(!empty($test->clinician->phone))
 		                           {{$test->clinician->phone }}
 								@endif
+                                
 
 						</div>
 					</div>
